@@ -1,11 +1,21 @@
 package sample;
 
-public class Korrigan {
-    public void power(){
+public class Korrigan extends Card {
 
+    public Korrigan()
+    {
+        this.name="Korrigan";
+        this.pathToImage = "default";
     }
+
+    public Korrigan(String name, String pathToImage)
+    {
+        this.name=name;
+        this.pathToImage = pathToImage;
+    }
+
     @Override
-    public String toString() {
-        return "Korrigan";
+    public int power(){
+        return 1;
     }
 }

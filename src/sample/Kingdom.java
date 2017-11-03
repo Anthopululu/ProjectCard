@@ -1,26 +1,20 @@
 package sample;
 
+import java.util.List;
 
 public class Kingdom {
 
-    public ListOfCards getKingdom() {
-        return kingdom;
+    List kingdom;
+
+    public List getKingdom() {
+        return this.kingdom;
     }
 
-    public void setKingdom(ListOfCards kingdom) {
+    public void setKingdom(List kingdom) {
         this.kingdom = kingdom;
     }
 
-    public Kingdom(ListOfCards kingdom) {
+    public Kingdom(List kingdom) {
         this.kingdom = kingdom;
     }
-
-    ListOfCards kingdom = new ListOfCards();
-
-    public void SetDown(ListOfCards Hand){
-           this.kingdom.getCards().add(Hand.getCards().remove(Hand.getCards().size()-1));
-    }
-
-
-
 }

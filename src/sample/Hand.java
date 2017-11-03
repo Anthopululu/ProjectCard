@@ -1,24 +1,21 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
-    ListOfCards hand = new ListOfCards();
+    List listOfCards = new ArrayList();
 
-    public Hand(ListOfCards hand) {
-        this.hand = hand;
+    public Hand(List hand) {
+        this.listOfCards = listOfCards;
     }
 
-    public ListOfCards getHand() {
-        return hand;
+    public List getHand() {
+        return listOfCards;
     }
 
-    public void setHand(ListOfCards hand) {
-        this.hand = hand;
-    }
-
-    public void Draw(ListOfCards Deck){
-        this.hand.getCards().add(Deck.getCards().remove(Deck.getCards().size()-1));
+    public void setHand(List hand) {
+        this.listOfCards = listOfCards;
     }
 
 }

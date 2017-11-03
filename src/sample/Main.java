@@ -21,10 +21,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        ListOfCards d = Deck.NewDeck();
-        for (int i=0;i<d.getCards().size();i++){
-            System.out.println(d.getCards().get(i).toString());
-        }
-
-}
+        Game g = new Game();
+        System.out.println(g.toString());
+    }
 }
