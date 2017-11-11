@@ -1,4 +1,4 @@
-package sample;
+import java.util.List;
 
 public abstract class Card {
 
@@ -18,6 +18,8 @@ public abstract class Card {
     }
 
     public abstract int power();//To override the method at each class
+    public abstract int power(List<Card> myHand, List<Card> advHand,List<Card> deck, Card inFront, Card advFront);//To override the method at each class for the Korrigan
+
 
     public String getName()
     {
