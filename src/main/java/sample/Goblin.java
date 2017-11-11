@@ -1,3 +1,4 @@
+package sample;
 import java.util.List;
 
 public class Goblin extends Card{

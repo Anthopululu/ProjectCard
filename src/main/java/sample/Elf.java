@@ -1,4 +1,6 @@
+package sample;
 import java.util.List;
+
 
 public class Elf extends  Card {
 

@@ -1,3 +1,5 @@
+package sample;
+
 import java.util.List;
 
 public abstract class Card {
