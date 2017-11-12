@@ -52,4 +52,5 @@ public abstract class Card {
         return this.name + " - " + pathToImage;
     }
 
+    public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
 }
