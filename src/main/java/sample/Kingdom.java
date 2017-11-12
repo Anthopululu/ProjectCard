@@ -17,4 +17,14 @@ public class Kingdom {
     public Kingdom(List kingdom) {
         this.kingdom = kingdom;
     }
+
+    public void addCard(Card c)
+    {
+        kingdom.add(c);
+    }
+
+    public void removeCard(int n)
+    {
+        kingdom.remove(n);
+    }
 }
