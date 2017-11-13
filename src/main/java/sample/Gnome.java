@@ -48,4 +48,5 @@ public class Gnome extends Card{
         }
         return 0;
     }
+    
 }

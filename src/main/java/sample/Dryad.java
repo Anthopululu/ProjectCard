@@ -8,10 +8,6 @@ public class Dryad extends Card {
         return 0;
     }
 
-    public int power(List<Card> myHand, List<Card> advHand, List<Card> deck, Card inFront, Card advFront) {
-        return 0;
-    }
-
     @Override
     public String toString() {
         return "Dryad";
@@ -19,7 +15,7 @@ public class Dryad extends Card {
 
 
     @Override
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
+    public int power(List<Card> myKingdom, List<Card> YourKingdom,List<Card> deck  ,Card MyCard, Card YourCard) {
         try {
             myKingdom.add(YourCard);
             YourKingdom.add(MyCard);
