@@ -1,24 +1,30 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 
 import javax.swing.text.html.ListView;
 
 public class Controller {
     @FXML
-    ListView kingdom1;
+    GridPane KingdomPlayer1;
 
     @FXML
-    ListView kingdom2;
+    GridPane KingdomPlayer2;
 
     @FXML
-    ListView hand1;
+    GridPane HandPlayer1;
 
     @FXML
-    ListView hand2;
+    GridPane HandPlayer2;
 
     @FXML
     ListView deck;
+
+    public void test(int id)
+    {
+        System.out.println(id);
+    }
 
 
 }
