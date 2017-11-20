@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -26,7 +28,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 : Name" />
          </children>
       </GridPane>
-      <GridPane fx:id="HandPlayer2" layoutX="14.0" layoutY="587.0" prefHeight="119.0" prefWidth="1258.0" style="-fx-border-color: #7fb27b; -fx-border-width: 3px; -fx-background-color: #bcd1c2;">
+      <GridPane fx:id="HandPlayer2" layoutX="14.0" layoutY="587.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,59 +45,68 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: crosshair;">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../Goblin.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../Elf.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@../Dryad.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../Goblin.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@../Dryad.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
-               <image>
-                  <Image url="@../Gnome.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:0}">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass></Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:1}" GridPane.columnIndex="1">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:2}" GridPane.columnIndex="2">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:3}" GridPane.columnIndex="3">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="goblin" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:4}" GridPane.columnIndex="4">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="gnome" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:5}" GridPane.columnIndex="5">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="elf" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:6}" GridPane.columnIndex="6">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="dryad" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:7}" GridPane.columnIndex="7">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:8}" GridPane.columnIndex="8">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:9}" GridPane.columnIndex="9">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="reverse" />
+               </styleClass>
+            </Button>
          </children>
       </GridPane>
-      <GridPane fx:id="KingdomPlayer2" layoutX="14.0" layoutY="475.0" prefHeight="100.0" prefWidth="1258.0" style="-fx-border-color: #a882c9; -fx-border-width: 3px; -fx-background-color: #b7a5c9;">
+      <GridPane fx:id="KingdomPlayer2" layoutX="14.0" layoutY="475.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -111,58 +122,67 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@../Dryad.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../Elf.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-         </children>
+          <children>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:0}">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass></Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:1}" GridPane.columnIndex="1">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:2}" GridPane.columnIndex="2">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:3}" GridPane.columnIndex="3">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:4}" GridPane.columnIndex="4">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="elf" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:5}" GridPane.columnIndex="5">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="dryad" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:6}" GridPane.columnIndex="6">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="gnome" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:7}" GridPane.columnIndex="7">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:8}" GridPane.columnIndex="8">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:false,id:9}" GridPane.columnIndex="9">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+          </children>
       </GridPane>
       <GridPane layoutX="560.0" layoutY="275.0" prefHeight="193.0" prefWidth="131.0">
         <columnConstraints>
@@ -184,7 +204,7 @@
             </Text>
          </children>
       </GridPane>
-      <GridPane fx:id="KingdomPlayer1" layoutX="14.0" layoutY="164.0" prefHeight="100.0" prefWidth="1258.0" style="-fx-border-color: #a882c9; -fx-border-width: 3px; -fx-background-color: #b7a5c9;">
+      <GridPane fx:id="KingdomPlayer1" layoutX="14.0" layoutY="164.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -200,60 +220,69 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@../Goblin.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../Gnome.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@../Elf.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-         </children>
+          <children>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:0}">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass></Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:1}" GridPane.columnIndex="1">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:2}" GridPane.columnIndex="2">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:3}" GridPane.columnIndex="3">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:4}" GridPane.columnIndex="4">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="dryad" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:5}" GridPane.columnIndex="5">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="goblin" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:6}" GridPane.columnIndex="6">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:7}" GridPane.columnIndex="7">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:8}" GridPane.columnIndex="8">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:9}" GridPane.columnIndex="9">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+          </children>
       </GridPane>
-      <GridPane fx:id="HandPlayer1" layoutX="14.0" layoutY="37.0" prefHeight="119.0" prefWidth="1258.0" style="-fx-border-color: #7fb27b; -fx-border-width: 3px; -fx-background-color: #bcd1c2;">
+      <GridPane fx:id="HandPlayer1" layoutX="14.0" layoutY="37.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -269,58 +298,67 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: pointer;">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="86.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-         </children>
+          <children>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:0}">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass></Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:1}" GridPane.columnIndex="1">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:2}" GridPane.columnIndex="2">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:3}" GridPane.columnIndex="3">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="elf" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:4}" GridPane.columnIndex="4">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="gnome" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:5}" GridPane.columnIndex="5">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="dryad" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:6}" GridPane.columnIndex="6">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="gnome" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:7}" GridPane.columnIndex="7">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="goblin" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:8}" GridPane.columnIndex="8">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:9}" GridPane.columnIndex="9">
+                  <styleClass>
+                      <String fx:value="card" />
+                      <String fx:value="reverse" />
+                  </styleClass>
+              </Button>
+          </children>
       </GridPane>
       <GridPane layoutX="898.0" layoutY="316.0" prefHeight="90.0" prefWidth="231.0" style="-fx-background-color: #c9d3d3; -fx-border-color: #adb2b2; -fx-border-width: 3px;">
          <columnConstraints>

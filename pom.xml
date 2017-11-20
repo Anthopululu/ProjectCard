@@ -7,6 +7,16 @@
     <groupId>groupId</groupId>
     <artifactId>JavaFxApplication</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <resources>
             <resource>
@@ -21,4 +31,6 @@
             </resource>
         </resources>
     </build>
+
+
 </project>

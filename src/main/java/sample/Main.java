@@ -16,12 +16,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
-
-
     public static void main(String[] args) {
         launch(args);
         Game g = new Game();
-        System.out.println(g.toString()+ "HAHAHA");
     }
 }

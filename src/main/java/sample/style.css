@@ -5,7 +5,46 @@
     -fx-background-position: center center;
 }
 
+.kingdom
+{
+    -fx-border-color: #a882c9;
+    -fx-border-width: 3px;
+    -fx-background-color: #b7a5c9;
+}
+
+.hand
+{
+    -fx-border-color: #7fb27b;
+    -fx-border-width: 3px;
+    -fx-background-color: #bcd1c2;
+}
+
 .card
 {
-    cursor: pointer;
+    -fx-background-image: url("../yugioh_reverse.png");
+    -fx-background-size: 70px 90px;
+    -fx-background-repeat: no-repeat;
+}
+
+.reverse
+{
+    -fx-opacity : 0.2;
+}
+
+.elf
+{
+    -fx-background-image: url("../Elf.png");
+}
+
+.dryad
+{
+    -fx-background-image: url("../Dryad.png");
+}
+.goblin
+{
+    -fx-background-image: url("../Goblin.png");
+}
+.gnome
+{
+    -fx-background-image: url("../Gnome.jpg");
 }
