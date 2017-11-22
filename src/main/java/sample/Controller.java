@@ -4,9 +4,9 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,6 +21,11 @@ import org.json.*;
 
 
 public class Controller {
+    // 0 : Fade animation delay, 1 : Fade Animation Duration, 2 : Reset Animation View Delay,
+    // 3 : Path Animation Duration, 4 : Put Card Delay
+    int[] delayAnimation = {1500, 1500, 1500, 2000, 1000};
+
+    boolean blockAnimation = false;
 
     ButtonPressInformation[] buttonInfo = { null, null };
 
@@ -41,137 +46,230 @@ public class Controller {
 
     @FXML
     private void numChange(ActionEvent event) {
-
-        //Get the userData element. A pattern is created to know which button are being pressed
-        Node node = (Node) event.getSource() ;
-        String data = (String) node.getUserData();
-        JSONObject json = new JSONObject(data);
-        ButtonPressInformation u = new ButtonPressInformation(json.getInt("id"), json.getInt("player"), json.getBoolean("hand"));
-
-        //Keep the last 2 button of the player turn. One from the hand, the other from the kingdom
-
-        if(u.isHand())
+        if(blockAnimation)
         {
-            buttonInfo[0] = u;
-        }
-        if(!u.isHand())
-        {
-            buttonInfo[1] = u;
-        }
-        if(buttonInfo[0] != null && buttonInfo[1] != null)
-        {
-            AnimatePutCard(1, 0);
-            buttonInfo[0] = null;
-            buttonInfo[1] = null;
-        }
-    }
-
-    public void AnimatePutCard(int playerTurn, int index)
-    {
-        /*GridPane startAnimationGridPane;
-        GridPane EndAnimationGridPane;
-        if(playerTurn == 1)
-        {
-            startAnimationGridPane = KingdomPlayer1;
-            EndAnimationGridPane = HandPlayer1;
+            System.out.println("Wait the end of the animation");
         }
         else
         {
-            startAnimationGridPane = KingdomPlayer2;
-            EndAnimationGridPane = HandPlayer2;
-        }*/
+            //Get the userData element. A pattern is created to know which button are being pressed
+            Node node = (Node) event.getSource() ;
+            String data = (String) node.getUserData();
+            JSONObject json = new JSONObject(data);
+            ButtonPressInformation u = new ButtonPressInformation(json.getInt("id"), json.getInt("player"), json.getBoolean("hand"));
+
+            //Keep the last 2 button of the player turn. One from the hand, the other from the kingdom
+
+            if(u.isHand())
+            {
+                buttonInfo[0] = u;
+            }
+            if(!u.isHand())
+            {
+                buttonInfo[1] = u;
+            }
+            if(buttonInfo[0] != null && buttonInfo[1] != null)
+            {
+                if(buttonInfo[0].getPlayer() == buttonInfo[1].getPlayer())//Same player card
+                {
+                    if(IsCoorectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
+                    {
+                        AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId());
+                    }
+                }
+                buttonInfo[0] = null;
+                buttonInfo[1] = null;
+            }
+        }
+    }
+
+    public boolean IsCoorectCardType(int playerTurn, int indexHand, int indexKingdom)
+    {
+        boolean result = false;
+        Scene s = AnimationView.getScene();
+        Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
+        Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + indexKingdom);
+        if(!handCard.getStyleClass().contains("reverse"))
+        {
+            if(kingdomCard.getStyleClass().contains("reverse"))
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public void AnimatePutCard(int playerTurn, int indexHand, int indexKingdom)
+    {
+        blockAnimation = true;
+        //Coordinate where the animation trigger and stop
+        double handCoordX = 0;
+        double handCoordY = 0;
+        double kingdomCoordX = 0;
+        double kingdomCoordY = 0;
+
+        //Each case
+        if(playerTurn == 1)
+        {
+            handCoordX = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoordY = HandPlayer1.getLayoutY()+60;
+            kingdomCoordX = KingdomPlayer1.getLayoutX()+36 + KingdomPlayer1.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoordY = KingdomPlayer1.getLayoutY()+50;
+        }
+        if(playerTurn == 2) {
+            handCoordX = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoordY = HandPlayer2.getLayoutY() + 60;
+            kingdomCoordX = KingdomPlayer2.getLayoutX() + 36 + KingdomPlayer2.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoordY = KingdomPlayer2.getLayoutY() + 50;
+        }
+
+        //Do the linear animation
+        PathAnimationCard(handCoordX, handCoordY, kingdomCoordX, kingdomCoordY);
+
+        //Return the class style and reset the card
+        ObservableList<String> tmp = resetCard(true, playerTurn, indexHand);
 
         Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(2500),
+                Duration.millis(delayAnimation[0]),
                 (ActionEvent ae) -> {
-                    FadeAnimationCard();
-                    //putCard(playerTurn,index);
+                    FadeAnimationCard();//Start the fade animation
+                    putCardDelay(playerTurn, indexKingdom, tmp);//Put the card at the end of fade animation
                 }));
         timeline.play();
 
-
         //Display the animated card
         AnimationView.setVisible(true);
+    }
 
-        /*Node n = getNodeByRowColumnIndex(0,0, KingdomPlayer1);
-        Bounds boundsInScreen = n.localToScreen(n.getBoundsInLocal());
-        Bounds boundsInScene = n.localToScene(n.getBoundsInLocal());
-        System.out.println("scene : " + boundsInScene);
-        System.out.println("screen : " + boundsInScreen);
-        System.out.println(AnimationView.getScene().getX()+n.getLayoutX());
-        System.out.println("true X : " + (KingdomPlayer1.getLayoutX()+36) + " true Y : " + (KingdomPlayer1.getLayoutY()+50));
-        //Path of rect*/
+    public void FadeAnimationCard()
+    {
+        //Fade animation of the rect
+        FadeTransition ft = new FadeTransition(Duration.millis(delayAnimation[1]), AnimationView);
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
+
+        ResetAnimationView();
+    }
+
+    public void ResetAnimationView()
+    {
+        //Reset card opacity and visiblie to none
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(delayAnimation[2]),
+                (ActionEvent ae) -> {
+                    AnimationView.setOpacity(1);
+                    AnimationView.setVisible(false);
+                    //putCard(playerTurn,index);
+                }));
+        timeline.play();
+    }
+
+    public void PathAnimationCard(double coordX, double coordY, double toCoordX, double toCoordY)
+    {
+        //Create the path of the animation
         Path path = new Path();
-        path.getElements().add(new MoveTo(HandPlayer1.getLayoutX()+36,HandPlayer1.getLayoutY()+60));
-        path.getElements().add(new LineTo(KingdomPlayer1.getLayoutX()+36,KingdomPlayer1.getLayoutY()+50));
+        path.getElements().add(new MoveTo(coordX,coordY));
+        path.getElements().add(new LineTo(toCoordX,toCoordY));
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(4000));
+        pathTransition.setDuration(Duration.millis(delayAnimation[3]));
         pathTransition.setPath(path);
         pathTransition.setNode(AnimationView);
         pathTransition.setCycleCount(1);
         pathTransition.play();
     }
 
-    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        boolean rowFind = false;
-        boolean columnFind = false;
-        ObservableList<Node> childrens = gridPane.getChildren();
-        for (Node node : childrens) {
-            if(gridPane.getRowIndex(node) == null)
-            {
-                if(row == 0)
-                {
-                    rowFind = true;
-                }
-            }
-            else if(gridPane.getRowIndex(node) == row)
-            {
-                rowFind = true;
-            }
-            if(gridPane.getColumnIndex(node) == null)
-            {
-                if(column == 0)
-                {
-                    columnFind = true;
-                }
-            }
-            else if(gridPane.getColumnIndex(node) == row)
-            {
-                columnFind = true;
-            }
-            if(rowFind && columnFind)
-            {
-                result = node;
-                break;
-            }
+    public void putCardDelay(int playerTurn, int indexKingdom, ObservableList<String> card)
+    {
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(delayAnimation[4]),
+                (ActionEvent ae) -> {
+                    Scene s = AnimationView.getScene();
+
+                    Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + (indexKingdom));
+                    kingdomCard.getStyleClass().clear();
+                    kingdomCard.getStyleClass().addAll(card);
+                    blockAnimation = false;
+                }));
+        timeline.play();
+    }
+
+    public ObservableList<String> resetCard(boolean isHand, int playerTurn, int index)
+    {
+        //Reset Card value
+        Scene s = AnimationView.getScene();
+        String tmpString = "";
+        if(isHand)
+        {
+            tmpString = "Hand";
         }
-        return result;
+        if(!isHand)
+        {
+            tmpString = "Kingdom";
+        }
+        Button handCard = (Button) s.lookup("#"+tmpString+"Player"+playerTurn+"_Card" + index);
+        ObservableList<String> tmp = FXCollections.observableArrayList( handCard.getStyleClass());
+        handCard.getStyleClass().clear();
+        handCard.getStyleClass().addAll("card", "reverse");
+        return tmp;
     }
 
-    public void FadeAnimationCard()
+    public void AnimateDrawCard(int playerTurn, int indexHand, String type)
     {
-        //Fade animation of the rect
-        FadeTransition ft = new FadeTransition(Duration.millis(2500), AnimationView);
-        ft.setFromValue(1.0);
-        ft.setToValue(0);
-        ft.setCycleCount(1);
-        ft.setDuration(Duration.millis(1500));
-        ft.setAutoReverse(false);
-        ft.play();
+        blockAnimation = true;
+
+        double handCoordX = 0;
+        double handCoordY = 0;
+
+        //Each case
+        if(playerTurn == 1)
+        {
+            handCoordX = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoordY = HandPlayer1.getLayoutY()+60;
+        }
+        if(playerTurn == 2) {
+            handCoordX = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoordY = HandPlayer2.getLayoutY() + 60;
+        }
+
+        //Do the linear animation
+        PathAnimationCard(625, 375, handCoordX, handCoordY);
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(delayAnimation[0]),
+                (ActionEvent ae) -> {
+                    FadeAnimationCard();//Start the fade animation
+                    drawCardDelay(playerTurn, indexHand, type);//Put the card at the end of fade animation
+                }));
+        timeline.play();
+
+        //Display the animated card
+        AnimationView.setVisible(true);
     }
 
-    public void putCard(int playerTurn, int index)
+    public void drawCardDelay(int playerTurn, int indexHand, String cardType)
     {
-       Scene s = AnimationView.getScene();
-       Button kingdomCard = (Button) s.lookup("#KingdomPlayer1_Card0");
-       Button handCard = (Button) s.lookup("#HandPlayer1_Card0");
-       handCard.getStyleClass().clear();
-       handCard.getStyleClass().addAll(kingdomCard.getStyleClass());
-       kingdomCard.getStyleClass().clear();
-       kingdomCard.getStyleClass().addAll("card", "reverse");
-
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(delayAnimation[4]),
+                (ActionEvent ae) -> {
+                    Scene s = AnimationView.getScene();
+                    Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
+                    handCard.getStyleClass().clear();
+                    handCard.getStyleClass().addAll( "card",cardType);
+                    blockAnimation = false;
+                }));
+        timeline.play();
     }
 
-
+    @FXML
+    public void initialize() {
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(1000),
+                (ActionEvent ae) -> {
+                    AnimateDrawCard(2,9, "elf");
+                }));
+        timeline.play();
+    }
 }
