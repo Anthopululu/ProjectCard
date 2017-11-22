@@ -59,7 +59,6 @@ public class Controller {
             ButtonPressInformation u = new ButtonPressInformation(json.getInt("id"), json.getInt("player"), json.getBoolean("hand"));
 
             //Keep the last 2 button of the player turn. One from the hand, the other from the kingdom
-
             if(u.isHand())
             {
                 buttonInfo[0] = u;
@@ -72,7 +71,8 @@ public class Controller {
             {
                 if(buttonInfo[0].getPlayer() == buttonInfo[1].getPlayer())//Same player card
                 {
-                    if(IsCoorectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
+                    //Check if it's a reverse card for the hand, the opposite for the kingdom
+                    if(IsCorrectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
                     {
                         AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId());
                     }
@@ -83,12 +83,16 @@ public class Controller {
         }
     }
 
-    public boolean IsCoorectCardType(int playerTurn, int indexHand, int indexKingdom)
+    public boolean IsCorrectCardType(int playerTurn, int indexHand, int indexKingdom)
     {
         boolean result = false;
         Scene s = AnimationView.getScene();
+
+        //Get the image
         Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
         Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + indexKingdom);
+
+        //Check their style class to know if it's a reverse or not
         if(!handCard.getStyleClass().contains("reverse"))
         {
             if(kingdomCard.getStyleClass().contains("reverse"))
@@ -143,7 +147,7 @@ public class Controller {
 
     public void FadeAnimationCard()
     {
-        //Fade animation of the rect
+        //Fade animation of the AnimationView
         FadeTransition ft = new FadeTransition(Duration.millis(delayAnimation[1]), AnimationView);
         ft.setFromValue(1.0);
         ft.setToValue(0);
@@ -156,7 +160,7 @@ public class Controller {
 
     public void ResetAnimationView()
     {
-        //Reset card opacity and visiblie to none
+        //Reset card opacity and visibility to none
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(delayAnimation[2]),
                 (ActionEvent ae) -> {
@@ -183,11 +187,12 @@ public class Controller {
 
     public void putCardDelay(int playerTurn, int indexKingdom, ObservableList<String> card)
     {
+        //Function with launch after the duration.
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(delayAnimation[4]),
                 (ActionEvent ae) -> {
                     Scene s = AnimationView.getScene();
-
+                    //Change the image of the button in the index
                     Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + (indexKingdom));
                     kingdomCard.getStyleClass().clear();
                     kingdomCard.getStyleClass().addAll(card);
@@ -198,7 +203,6 @@ public class Controller {
 
     public ObservableList<String> resetCard(boolean isHand, int playerTurn, int index)
     {
-        //Reset Card value
         Scene s = AnimationView.getScene();
         String tmpString = "";
         if(isHand)
@@ -210,9 +214,15 @@ public class Controller {
             tmpString = "Kingdom";
         }
         Button handCard = (Button) s.lookup("#"+tmpString+"Player"+playerTurn+"_Card" + index);
+
+        //Copy the value, not the pointer
         ObservableList<String> tmp = FXCollections.observableArrayList( handCard.getStyleClass());
+
+        //Set to default card
         handCard.getStyleClass().clear();
         handCard.getStyleClass().addAll("card", "reverse");
+
+        //Return the class of the card deleted
         return tmp;
     }
 
@@ -241,7 +251,7 @@ public class Controller {
                 Duration.millis(delayAnimation[0]),
                 (ActionEvent ae) -> {
                     FadeAnimationCard();//Start the fade animation
-                    drawCardDelay(playerTurn, indexHand, type);//Put the card at the end of fade animation
+                    drawCardDelay(playerTurn, indexHand, type);//Put the card at the end of fade animation. Delay function included
                 }));
         timeline.play();
 
@@ -255,6 +265,8 @@ public class Controller {
                 Duration.millis(delayAnimation[4]),
                 (ActionEvent ae) -> {
                     Scene s = AnimationView.getScene();
+
+                    //Set the card value
                     Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
                     handCard.getStyleClass().clear();
                     handCard.getStyleClass().addAll( "card",cardType);
