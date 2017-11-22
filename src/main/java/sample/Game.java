@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Game {
         List deck;
+        int anthony;
 
         public Game()
         {
