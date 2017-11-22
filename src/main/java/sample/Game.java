@@ -6,9 +6,8 @@ import java.util.Random;
 
 
 public class Game {
-        List<Card> deck;
-        Player player1 = new Player();
-
+        List deck;
+        int anthony;
 
         public Game()
         {
