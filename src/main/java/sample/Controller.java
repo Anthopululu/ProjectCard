@@ -1,11 +1,9 @@
 package sample;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -21,9 +19,8 @@ import org.json.*;
 
 
 public class Controller {
-    // 0 : Fade animation delay, 1 : Fade Animation Duration, 2 : Reset Animation View Delay,
-    // 3 : Path Animation Duration, 4 : Put Card Delay
-    int[] delayAnimation = {1500, 1500, 1500, 2000, 1000};
+    // 0 : Fade animation delay, 1 : Path Animation Duration
+    int[] delayAnimation = { 500, 500};
 
     boolean blockAnimation = false;
 
@@ -128,77 +125,61 @@ public class Controller {
         }
 
         //Do the linear animation
-        PathAnimationCard(handCoordX, handCoordY, kingdomCoordX, kingdomCoordY);
+        PathTransition path = PathAnimationCard(handCoordX, handCoordY, kingdomCoordX, kingdomCoordY);
 
+        FadeTransition fade = FadeAnimationCard();//Start the fade animation
         //Return the class style and reset the card
         ObservableList<String> tmp = resetCard(true, playerTurn, indexHand);
 
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(delayAnimation[0]),
-                (ActionEvent ae) -> {
-                    FadeAnimationCard();//Start the fade animation
-                    putCardDelay(playerTurn, indexKingdom, tmp);//Put the card at the end of fade animation
-                }));
-        timeline.play();
+        SequentialTransition seqT = new SequentialTransition (path, fade);
+        seqT.play();
+        seqT.setOnFinished(e -> putCard(playerTurn, indexKingdom, tmp));//Put the card at the end of fade animation. Delay function included);
 
         //Display the animated card
         AnimationView.setVisible(true);
     }
 
-    public void FadeAnimationCard()
+    public FadeTransition FadeAnimationCard()
     {
         //Fade animation of the AnimationView
-        FadeTransition ft = new FadeTransition(Duration.millis(delayAnimation[1]), AnimationView);
+        FadeTransition ft = new FadeTransition(Duration.millis(delayAnimation[0]), AnimationView);
         ft.setFromValue(1.0);
         ft.setToValue(0);
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
-        ft.play();
-
-        ResetAnimationView();
+        return ft;
     }
 
     public void ResetAnimationView()
     {
         //Reset card opacity and visibility to none
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(delayAnimation[2]),
-                (ActionEvent ae) -> {
-                    AnimationView.setOpacity(1);
-                    AnimationView.setVisible(false);
-                    //putCard(playerTurn,index);
-                }));
-        timeline.play();
+        AnimationView.setOpacity(1);
+        AnimationView.setVisible(false);
+        AnimationView.setVisible(false);
     }
 
-    public void PathAnimationCard(double coordX, double coordY, double toCoordX, double toCoordY)
+    public PathTransition PathAnimationCard(double coordX, double coordY, double toCoordX, double toCoordY)
     {
         //Create the path of the animation
         Path path = new Path();
         path.getElements().add(new MoveTo(coordX,coordY));
         path.getElements().add(new LineTo(toCoordX,toCoordY));
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(delayAnimation[3]));
+        pathTransition.setDuration(Duration.millis(delayAnimation[1]));
         pathTransition.setPath(path);
         pathTransition.setNode(AnimationView);
         pathTransition.setCycleCount(1);
-        pathTransition.play();
+        return pathTransition;
     }
 
-    public void putCardDelay(int playerTurn, int indexKingdom, ObservableList<String> card)
+    public void putCard(int playerTurn, int indexKingdom, ObservableList<String> card)
     {
-        //Function with launch after the duration.
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(delayAnimation[4]),
-                (ActionEvent ae) -> {
-                    Scene s = AnimationView.getScene();
-                    //Change the image of the button in the index
-                    Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + (indexKingdom));
-                    kingdomCard.getStyleClass().clear();
-                    kingdomCard.getStyleClass().addAll(card);
-                    blockAnimation = false;
-                }));
-        timeline.play();
+        Scene s = AnimationView.getScene();
+        //Change the image of the button in the index
+        Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + (indexKingdom));
+        kingdomCard.getStyleClass().clear();
+        kingdomCard.getStyleClass().addAll(card);
+        blockAnimation = false;
     }
 
     public ObservableList<String> resetCard(boolean isHand, int playerTurn, int index)
@@ -245,43 +226,36 @@ public class Controller {
         }
 
         //Do the linear animation
-        PathAnimationCard(625, 375, handCoordX, handCoordY);
+        PathTransition path = PathAnimationCard(625, 375, handCoordX, handCoordY);
 
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(delayAnimation[0]),
-                (ActionEvent ae) -> {
-                    FadeAnimationCard();//Start the fade animation
-                    drawCardDelay(playerTurn, indexHand, type);//Put the card at the end of fade animation. Delay function included
-                }));
-        timeline.play();
+        FadeTransition fade = FadeAnimationCard();//The fade animation
 
+        SequentialTransition seqT = new SequentialTransition (path, fade);
+        seqT.play();
+        seqT.setOnFinished(e -> drawCard(playerTurn, indexHand, type));//Put the card at the end of fade animation.
         //Display the animated card
         AnimationView.setVisible(true);
     }
 
-    public void drawCardDelay(int playerTurn, int indexHand, String cardType)
+    public void test()
     {
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(delayAnimation[4]),
-                (ActionEvent ae) -> {
-                    Scene s = AnimationView.getScene();
+        System.out.println("test");
+    }
 
-                    //Set the card value
-                    Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
-                    handCard.getStyleClass().clear();
-                    handCard.getStyleClass().addAll( "card",cardType);
-                    blockAnimation = false;
-                }));
-        timeline.play();
+    public void drawCard(int playerTurn, int indexHand, String cardType)
+    {
+        Scene s = AnimationView.getScene();
+
+        //Set the card value
+        Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
+        handCard.getStyleClass().clear();
+        handCard.getStyleClass().addAll( "card",cardType);
+        blockAnimation = false;
+
+        ResetAnimationView();
     }
 
     @FXML
     public void initialize() {
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(1000),
-                (ActionEvent ae) -> {
-                    AnimateDrawCard(2,9, "elf");
-                }));
-        timeline.play();
     }
 }
