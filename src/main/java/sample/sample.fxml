@@ -65,25 +65,25 @@
             <Button id="HandPlayer2_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:3}" GridPane.columnIndex="3">
                <styleClass>
                   <String fx:value="card" />
-                  <String fx:value="goblin" />
+                  <String fx:value="reverse" />
                </styleClass>
             </Button>
             <Button id="HandPlayer2_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:4}" GridPane.columnIndex="4">
                <styleClass>
                   <String fx:value="card" />
-                  <String fx:value="gnome" />
+                  <String fx:value="reverse" />
                </styleClass>
             </Button>
             <Button id="HandPlayer2_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:5}" GridPane.columnIndex="5">
                <styleClass>
                   <String fx:value="card" />
-                  <String fx:value="elf" />
+                  <String fx:value="reverse" />
                </styleClass>
             </Button>
             <Button id="HandPlayer2_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:6}" GridPane.columnIndex="6">
                <styleClass>
                   <String fx:value="card" />
-                  <String fx:value="dryad" />
+                  <String fx:value="reverse" />
                </styleClass>
             </Button>
             <Button id="HandPlayer2_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:2,hand:true,id:7}" GridPane.columnIndex="7">
@@ -319,31 +319,31 @@
               <Button id="HandPlayer1_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:3}" GridPane.columnIndex="3">
                   <styleClass>
                       <String fx:value="card" />
-                      <String fx:value="elf" />
+                      <String fx:value="reverse" />
                   </styleClass>
               </Button>
               <Button id="HandPlayer1_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:4}" GridPane.columnIndex="4">
                   <styleClass>
                       <String fx:value="card" />
-                      <String fx:value="gnome" />
+                      <String fx:value="reverse" />
                   </styleClass>
               </Button>
               <Button id="HandPlayer1_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:5}" GridPane.columnIndex="5">
                   <styleClass>
                       <String fx:value="card" />
-                      <String fx:value="dryad" />
+                      <String fx:value="reverse" />
                   </styleClass>
               </Button>
               <Button id="HandPlayer1_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:6}" GridPane.columnIndex="6">
                   <styleClass>
                       <String fx:value="card" />
-                      <String fx:value="gnome" />
+                      <String fx:value="reverse" />
                   </styleClass>
               </Button>
               <Button id="HandPlayer1_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:7}" GridPane.columnIndex="7">
                   <styleClass>
                       <String fx:value="card" />
-                      <String fx:value="goblin" />
+                      <String fx:value="reverse" />
                   </styleClass>
               </Button>
               <Button id="HandPlayer1_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:8}" GridPane.columnIndex="8">

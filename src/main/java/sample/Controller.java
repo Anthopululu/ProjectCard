@@ -17,12 +17,18 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import org.json.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
 
 public class Controller {
     // 0 : Fade animation delay, 1 : Path Animation Duration
     int[] delayAnimation = { 500, 500};
 
     boolean blockAnimation = false;
+
+    int NB_CARD = 10;//Number of card in the hand and in the kingdom
 
     ButtonPressInformation[] buttonInfo = { null, null };
 
@@ -71,7 +77,7 @@ public class Controller {
                     //Check if it's a reverse card for the hand, the opposite for the kingdom
                     if(IsCorrectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
                     {
-                        AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId());
+                        AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId(), null);
                     }
                 }
                 buttonInfo[0] = null;
@@ -100,7 +106,7 @@ public class Controller {
         return result;
     }
 
-    public void AnimatePutCard(int playerTurn, int indexHand, int indexKingdom)
+    public void AnimatePutCard(int playerTurn, int indexHand, int indexKingdom, CountDownLatch latch)
     {
         blockAnimation = true;
         //Coordinate where the animation trigger and stop
@@ -133,7 +139,7 @@ public class Controller {
 
         SequentialTransition seqT = new SequentialTransition (path, fade);
         seqT.play();
-        seqT.setOnFinished(e -> putCard(playerTurn, indexKingdom, tmp));//Put the card at the end of fade animation. Delay function included);
+        seqT.setOnFinished(e -> putCard(playerTurn, indexKingdom, tmp, latch));//Put the card at the end of fade animation. Delay function included);
 
         //Display the animated card
         AnimationView.setVisible(true);
@@ -172,7 +178,7 @@ public class Controller {
         return pathTransition;
     }
 
-    public void putCard(int playerTurn, int indexKingdom, ObservableList<String> card)
+    public void putCard(int playerTurn, int indexKingdom, ObservableList<String> card, CountDownLatch latch)
     {
         Scene s = AnimationView.getScene();
         //Change the image of the button in the index
@@ -180,6 +186,11 @@ public class Controller {
         kingdomCard.getStyleClass().clear();
         kingdomCard.getStyleClass().addAll(card);
         blockAnimation = false;
+
+        if(latch != null)
+        {
+            latch.countDown(); // Release await() in the test thread.
+        }
     }
 
     public ObservableList<String> resetCard(boolean isHand, int playerTurn, int index)
@@ -207,7 +218,7 @@ public class Controller {
         return tmp;
     }
 
-    public void AnimateDrawCard(int playerTurn, int indexHand, String type)
+    public void AnimateDrawCard(int playerTurn, int indexHand, String type, CountDownLatch latch)
     {
         blockAnimation = true;
 
@@ -224,25 +235,19 @@ public class Controller {
             handCoordX = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
             handCoordY = HandPlayer2.getLayoutY() + 60;
         }
-
         //Do the linear animation
         PathTransition path = PathAnimationCard(625, 375, handCoordX, handCoordY);
 
         FadeTransition fade = FadeAnimationCard();//The fade animation
 
         SequentialTransition seqT = new SequentialTransition (path, fade);
+        seqT.setOnFinished(e -> drawCard(playerTurn, indexHand, type, latch));//Put the card at the end of fade animation.
         seqT.play();
-        seqT.setOnFinished(e -> drawCard(playerTurn, indexHand, type));//Put the card at the end of fade animation.
         //Display the animated card
         AnimationView.setVisible(true);
     }
 
-    public void test()
-    {
-        System.out.println("test");
-    }
-
-    public void drawCard(int playerTurn, int indexHand, String cardType)
+    public void drawCard(int playerTurn, int indexHand, String cardType, CountDownLatch latch)
     {
         Scene s = AnimationView.getScene();
 
@@ -253,9 +258,94 @@ public class Controller {
         blockAnimation = false;
 
         ResetAnimationView();
+
+        if(latch != null)
+        {
+            latch.countDown(); // Release await() in the test thread.
+        }
+
     }
 
-    @FXML
-    public void initialize() {
+    public void DrawAnimationMultipleCard(int player, List<String> listType) throws InterruptedException {
+        for(int i = 0; i < listType.size();i++)
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+            int indexHand = SequenceNumberMiddle10(i);
+            AnimateDrawCard(player,indexHand, listType.get(i), latch);
+            latch.await();
+        }
     }
+
+    public void DrawMultipleCard(int player, List<String> listType) throws InterruptedException {
+        for(int i = 0; i < listType.size();i++)
+        {
+            int indexHand = SequenceNumberMiddle10(i);
+            drawCard(player,indexHand, listType.get(i), null);
+        }
+    }
+
+    public int SequenceNumberMiddle10(int index)
+    {
+        int u0 = 5;
+        double t = Math.pow(-1, index);
+        double i = Math.ceil((double)index/2);
+        int result = (int)(u0 + t * i);
+        return result;
+    }
+
+    public void FieldToReverse(String type, int player)
+    {
+        String name = "";
+        if(type == "kingdom")
+        {
+            name = "#KingdomPlayer"+player+"_Card";
+        }
+        if(type == "hand")
+        {
+            name = "#HandPlayer"+player+"_Card";
+        }
+
+        for(int i = 0; i < NB_CARD; i++)
+        {
+            Scene s = KingdomPlayer1.getScene();
+            Button b = (Button) s.lookup(name+i);
+            b.getStyleClass().clear();
+            b.getStyleClass().addAll("card", "reverse");
+        }
+
+    }
+
+    public CountDownLatch Play()
+    {
+        CountDownLatch latch = new CountDownLatch(1);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> listType = Arrays.asList("dryad","gnome","gnome","elf","goblin");
+                List<String> listType2 = Arrays.asList("elf","gnome","dryad","goblin","elf");
+                try {
+                    DrawAnimationMultipleCard(1, listType);
+                    DrawAnimationMultipleCard(2, listType2);
+                    latch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(1500),
+                (ActionEvent ae) -> {
+                    System.out.println("start");
+                    t.start();
+                }));
+        timeline.play();
+
+        return latch;
+    }
+
+    /*@FXML
+    public void initialize() {
+
+    }*/
 }

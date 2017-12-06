@@ -1,29 +1,16 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.junit.Rule;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static javafx.scene.input.KeyCode.ENTER;
-import static org.junit.Assert.*;
-import static org.testfx.matcher.base.NodeMatchers.hasChildren;
 
 public class ControllerTest extends ApplicationTest {
 
@@ -39,18 +26,50 @@ public class ControllerTest extends ApplicationTest {
         scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
         stage.show();
+
+
+    }
+
+    public void handFilled()
+    {
+        List<String> listType = Arrays.asList("dryad","gnome","gnome","elf","goblin");
+        List<String> listType2 = Arrays.asList("elf","gnome","dryad","goblin");
+        try {
+            controller.DrawMultipleCard(1, listType);
+            controller.DrawMultipleCard(2, listType);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void DrawCard() throws InterruptedException {
-        controller.AnimateDrawCard(2,9, "elf");
-        Thread.sleep(2000);
+    public void AnimateDrawCard() throws InterruptedException {
+        handFilled();
+        CountDownLatch latch = new CountDownLatch(1);
+        controller.AnimateDrawCard(2,9, "elf", latch);
+        latch.await();
     }
 
     @Test
-    public void PutCard() throws InterruptedException {
-        controller.AnimatePutCard(2,3, 3);
-        Thread.sleep(2000);
+    public void AnimatePutCard() throws InterruptedException {
+        handFilled();
+        CountDownLatch latch = new CountDownLatch(1);
+        controller.AnimatePutCard(2,3, 3, latch);
+        latch.await();
+    }
+
+    @Test
+    public void FieldToReverse() throws InterruptedException {
+        handFilled();
+        controller.FieldToReverse("hand",1);
+        controller.FieldToReverse("kingdom",2);
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void DrawFirstCard() throws InterruptedException {
+        CountDownLatch latch = controller.Play();
+        latch.await();
     }
 
 }
