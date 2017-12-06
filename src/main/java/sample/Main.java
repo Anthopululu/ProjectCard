@@ -20,10 +20,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        /*launch(args);
+        launch(args);
         Game g = new Game();
-        System.out.pr2intln(g.toString()+ "HAHAHA");*/
-        /*Test t = new Test();
-        t.tester();*/
+        System.out.println(g.toString()+ "HAHAHA");
     }
 }

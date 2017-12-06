@@ -28,9 +28,9 @@ public class Korrigan extends Card  {
     public int power(Hand myHand, Hand advHand,List<Card> deck, Card inFront, Card advFront) {
         Random rand = new Random();
         /*
-        If the oppenent had enough card, draw 2 random cards from his hand,
-        if he only had 1 cards take it
-        if he doesn't had card return nothing
+        If the oppenent has enough card, draw 2 random cards from his hand,
+        if he only has 1 card, takes it
+        if he doesn't has card return nothing
         */
         if(advHand.size() > 1 )
         {
