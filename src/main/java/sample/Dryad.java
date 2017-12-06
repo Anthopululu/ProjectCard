@@ -13,9 +13,8 @@ public class Dryad extends Card {
         return "Dryad";
     }
 
-
     @Override
-    public int power(List<Card> myKingdom, List<Card> YourKingdom,List<Card> deck  ,Card MyCard, Card YourCard) {
+    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
         try {
             myKingdom.add(YourCard);
             YourKingdom.add(MyCard);
@@ -26,6 +25,11 @@ public class Dryad extends Card {
             System.out.print(e.getMessage());
         }
         return 0;
-
     }
+
+    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
+        return 0;
+    }
+
+
 }
