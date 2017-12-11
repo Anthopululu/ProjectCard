@@ -40,11 +40,8 @@ public class ControllerTest extends ApplicationTest {
 
     //@Given("^my hand is filled$")
 
-    public void handFilled()
+    public void handFilledInterface()
     {
-
-        List<Card> listType = Arrays.asList(new Dryad(),new Gnome(),new Gnome(),new Elf(), new Goblin());
-        List<Card> listType2 = Arrays.asList(new Elf(), new Goblin(),new Dryad(),new Gnome(),new Elf());
         try {
             controller.game.DrawMultipleCard(1, 5);
             controller.game.DrawMultipleCard(2, 5);
@@ -56,9 +53,9 @@ public class ControllerTest extends ApplicationTest {
 
     @Test
     public void AnimatePutCard() throws InterruptedException {
-        handFilled();
+        handFilledInterface();
         CountDownLatch latch = new CountDownLatch(1);
-        controller.game.AnimatePutCard(2,3, 3, latch);
+        controller.game.animation.AnimatePutCard(2,3, 3, latch);
         latch.await();
     }
 

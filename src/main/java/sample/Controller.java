@@ -80,7 +80,7 @@ public class Controller {
                     if(IsCorrectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
                     {
                         //System.out.println(s.lo);
-                        game.AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId(), null);
+                        game.animation.AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId(), null);
                     }
                 }
                 buttonInfo[0] = null;
