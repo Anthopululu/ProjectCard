@@ -9,12 +9,17 @@ public class DefaultCard extends Card{
         this.setName("Reverse");
     }
 
+    @Override
     public int power() {
         return 0;
     }
 
+    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
+        return 0;
+    }
+
     @Override
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, List<Card> deck  , Card MyCard, Card YourCard) {
+    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
         return -1;
     }
 }

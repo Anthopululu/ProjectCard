@@ -68,7 +68,9 @@ public abstract class Card {
 
     //public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
 
-    public abstract int power(List<Card> myHand, List<Card> advHand, List<Card> deck, Card inFront, Card advFront);
+    public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
+
+    public abstract int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront);
 
     public List<String> getClassString()
     {
