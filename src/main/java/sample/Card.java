@@ -1,22 +1,48 @@
 package sample;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Card {
 
     String name;
-    String pathToImage;
+    boolean isHand;
+    boolean isKingdom;
 
     public Card()//To have an heritage
     {
-        this.name = "none";
-        this.pathToImage = "none";
+        isHand = false;
+        isKingdom = false;
     }
 
-    public Card(String name, String pathToImage)
+    public Card(String name)
     {
         this.name = name;
-        this.pathToImage = pathToImage;
+        isHand = false;
+        isKingdom = false;
+    }
+
+    public boolean IsKingdom()
+    {
+        return isKingdom;
+    }
+
+    public boolean IsHand()
+    {
+        return isHand;
+    }
+
+    public void toKingdom()
+    {
+        isHand = false;
+        isKingdom = true;
+    }
+
+    public void toHand()
+    {
+        isHand = true;
+        isKingdom = false;
     }
 
     public abstract int power();//To override the method at each class
@@ -35,24 +61,17 @@ public abstract class Card {
         this.name = name;
     }
 
-    public String getPathToImage()
-    {
-        //getting the lastName variable instance
-        return pathToImage;
-    }
-
-    public void setPathToImage(String name)
-    {
-        //setting the firstName variable text
-        this.pathToImage = pathToImage;
-    }
-
     @Override
     public String toString() {
-        return this.name + " - " + pathToImage;
+        return this.name;
     }
 
     //public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
 
     public abstract int power(List<Card> myHand, List<Card> advHand, List<Card> deck, Card inFront, Card advFront);
+
+    public List<String> getClassString()
+    {
+        return Arrays.asList("Card", this.name);
+    }
 }

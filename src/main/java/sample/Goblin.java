@@ -7,7 +7,6 @@ public class Goblin extends Card{
     public Goblin()
     {
         this.setName("Goblin");
-        this.setPathToImage("Path");
     }
 
     @Override

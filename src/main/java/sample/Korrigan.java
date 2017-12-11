@@ -3,13 +3,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Korrigan extends Card  {
-    private String name = "Korrigan";
-    private String img = "Url";
 
     public  Korrigan()
     {
-        this.setName(name);
-        this.setPathToImage(img);
+        this.setName("Korrigan");
     }
 
     @Override

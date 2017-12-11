@@ -4,15 +4,14 @@ import java.util.List;
 
 public class Dryad extends Card {
 
+    public Dryad()
+    {
+        this.setName("Dryad");
+    }
+
     public int power() {
         return 0;
     }
-
-    @Override
-    public String toString() {
-        return "Dryad";
-    }
-
 
     @Override
     public int power(List<Card> myKingdom, List<Card> YourKingdom,List<Card> deck  ,Card MyCard, Card YourCard) {

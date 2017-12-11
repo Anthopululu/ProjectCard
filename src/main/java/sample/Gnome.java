@@ -6,7 +6,6 @@ public class Gnome extends Card{
     public Gnome()
     {
         this.setName("Gnome");
-        this.setPathToImage("Path");
     }
 
     @Override

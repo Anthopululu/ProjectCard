@@ -7,7 +7,6 @@ public class Elf extends  Card {
     public Elf()
     {
         this.setName("Elf");
-        this.setPathToImage("Path");
     }
 
     @Override

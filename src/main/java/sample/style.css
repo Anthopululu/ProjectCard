@@ -19,32 +19,40 @@
     -fx-background-color: #bcd1c2;
 }
 
-.card
+.Card
 {
     -fx-background-image: url("../yugioh_reverse.png");
     -fx-background-size: 70px 90px;
     -fx-background-repeat: no-repeat;
 }
 
-.reverse
+.Reverse
 {
     -fx-opacity : 0.2;
 }
 
-.elf
+.Elf
 {
     -fx-background-image: url("../Elf.png");
 }
 
-.dryad
+.Dryad
 {
     -fx-background-image: url("../Dryad.png");
 }
-.goblin
+.Goblin
 {
     -fx-background-image: url("../Goblin.png");
 }
-.gnome
+.Gnome
 {
     -fx-background-image: url("../Gnome.jpg");
+}
+.Troll
+{
+    -fx-background-image: url("../Troll.jpg");
+}
+.Korrigan
+{
+    -fx-background-image: url("../Troll.jpg");
 }

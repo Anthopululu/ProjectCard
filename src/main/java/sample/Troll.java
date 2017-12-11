@@ -6,7 +6,6 @@ public class Troll extends Card {
     public Troll()
     {
         this.setName("Troll");
-        this.setPathToImage("Path");
     }
 
     @Override
