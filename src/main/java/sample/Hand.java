@@ -4,18 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    List listOfCards;
 
-    public Hand(List hand) {
-        this.listOfCards = new ArrayList();
+    public List<Card> getListOfCards() {
+        return listOfCards;
+    }
+
+    private List<Card> listOfCards;
+
+    /***
+     * Create a constructor
+     * You either start with a hand already created or
+     * you start with nothing and you draw a number a card a the begening
+     * @param hand
+     */
+    public Hand(List<Card> hand) {
+        this.listOfCards = hand;
+    }
+
+    public Hand()
+    {
+        listOfCards = new ArrayList<Card>();
     }
 
     public List getHand() {
         return listOfCards;
     }
 
-    public void setHand(List hand) {
-        this.listOfCards = listOfCards;
+    public void setHand(List<Card> hand) {
+        this.listOfCards = hand;
     }
 
     /***
@@ -89,5 +105,21 @@ public class Hand {
         else return false;
     }
 
+    public void deleteIndex(int index)
+    {
+        listOfCards.remove(index);
+    }
 
+    public void delete(Card card){
+        listOfCards.remove(card);
+    }
+
+    public void add(Card card)
+    {
+        listOfCards.add(card);
+    }
+
+    public Card get(int index) {
+        return listOfCards.get(index);
+    }
 }

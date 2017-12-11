@@ -14,6 +14,10 @@ public class Goblin extends Card{
         return 0;
     }
 
+    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
+        return 0;
+    }
+
     /***
      *
      * @param myHand
@@ -26,7 +30,7 @@ public class Goblin extends Card{
      * switch your hand with you opponent
      */
     @Override
-    public int power(List<Card> myHand, List<Card> advHand, List<Card> deck, Card inFront, Card advFront) {
+    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
 
         /*
         Create a tmp element
@@ -35,7 +39,7 @@ public class Goblin extends Card{
         adv get the card on tmp
          */
         try {
-            List<Card> tmp = myHand;
+            Hand tmp = myHand;
             myHand = advHand;
             advHand = tmp;
         }

@@ -13,11 +13,24 @@ public class Troll extends Card {
         return 0;
     }
 
+    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
+        return 0;
+    }
+
+    /***
+     *
+     * @param myHand
+     * @param advHand
+     * @param deck
+     * @param inFront
+     * @param advFront
+     * @return
+     */
     @Override
-    public int power(List<Card> myHand, List<Card> advHand, List<Card> deck, Card inFront, Card advFront) {
+    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
 
         try{
-            List<Card> tmp;
+            Hand tmp;
             tmp = advHand;
             advHand = myHand;
             myHand = tmp;

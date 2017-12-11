@@ -14,11 +14,15 @@ public class Korrigan extends Card  {
         return 0;
     }
 
+    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
+        return 0;
+    }
+
     /***
-     *Korrigan cards draw 2 random cards within your opponent han
+     *Korrigan cards draw 2 random cards within your opponent hand
      */
     @Override
-    public int power(List<Card> myHand, List<Card> advHand,List<Card> deck, Card inFront, Card advFront) {
+    public int power(Hand myHand, Hand advHand,List<Card> deck, Card inFront, Card advFront) {
         Random rand = new Random();
         /*
         If the oppenent has enough card, draw 2 random cards from his hand,
@@ -37,10 +41,10 @@ public class Korrigan extends Card  {
                 Card tmp = new Korrigan();
                 tmp = advHand.get(card1);
                 myHand.add(tmp);
-                advHand.remove(tmp);
+                advHand.delete(tmp);
                 tmp = advHand.get(card2);
                 myHand.add(tmp);
-                advHand.remove(tmp);
+                advHand.delete(tmp);
                 return 1;
             }
             catch (Exception e)
@@ -52,7 +56,7 @@ public class Korrigan extends Card  {
             try{
                 int cards = rand.nextInt(advHand.size());
                 myHand.add(advHand.get(0));
-                advHand.remove(advHand.get(0));
+                advHand.deleteIndex(0);
                 return 1;
             }catch (Exception e)
             {
