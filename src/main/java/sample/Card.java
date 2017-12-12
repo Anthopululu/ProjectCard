@@ -9,9 +9,12 @@ public abstract class Card {
     String name;
     boolean isHand;
     boolean isKingdom;
+    static Card DEFAULT_CARD = new DefaultCard();
+    boolean isDeck;
 
     public Card()//To have an heritage
     {
+        isDeck = true;
         isHand = false;
         isKingdom = false;
     }
@@ -19,8 +22,14 @@ public abstract class Card {
     public Card(String name)
     {
         this.name = name;
+        isDeck = true;
         isHand = false;
         isKingdom = false;
+    }
+
+    public boolean IsDeck()
+    {
+        return isDeck;
     }
 
     public boolean IsKingdom()
@@ -35,14 +44,26 @@ public abstract class Card {
 
     public void toKingdom()
     {
+        isDeck = false;
         isHand = false;
         isKingdom = true;
     }
 
     public void toHand()
     {
+        isDeck = false;
         isHand = true;
         isKingdom = false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+
+        Card card = (Card) o;
+
+        return name.equals(card.name);
     }
 
     public abstract int power();//To override the method at each class

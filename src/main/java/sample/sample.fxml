@@ -197,7 +197,7 @@
                   <Image url="@../yugioh_reverse.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Card left 45">
+            <Text fx:id="textDeckCardLeft" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Card left 45">
                <font>
                   <Font size="24.0" />
                </font>

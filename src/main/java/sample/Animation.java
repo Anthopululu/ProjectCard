@@ -29,6 +29,11 @@ public class Animation {
 
     boolean blockAnimation;
 
+    // 0 : Fade animation delay, 1 : Path Animation Duration
+    final int[] DELAY_ANIMATION = { 500, 500};
+
+    final double[] DECK_COORD = {625, 375};
+
     public Animation(ImageView AnimationView,GridPane KingdomPlayer1,GridPane KingdomPlayer2,GridPane HandPlayer1,GridPane HandPlayer2, boolean blockAnimation)
     {
         this.AnimationView = AnimationView;
@@ -43,28 +48,11 @@ public class Animation {
     {
         blockAnimation = true;
         //Coordinate where the animation trigger and stop
-        double handCoordX = 0;
-        double handCoordY = 0;
-        double kingdomCoordX = 0;
-        double kingdomCoordY = 0;
-
-        //Each case
-        if(playerTurn == 1)
-        {
-            handCoordX = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoordY = HandPlayer1.getLayoutY()+60;
-            kingdomCoordX = KingdomPlayer1.getLayoutX()+36 + KingdomPlayer1.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
-            kingdomCoordY = KingdomPlayer1.getLayoutY()+50;
-        }
-        if(playerTurn == 2) {
-            handCoordX = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoordY = HandPlayer2.getLayoutY() + 60;
-            kingdomCoordX = KingdomPlayer2.getLayoutX() + 36 + KingdomPlayer2.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
-            kingdomCoordY = KingdomPlayer2.getLayoutY() + 50;
-        }
+        double[] handCoord = PatternIndexHandToCoord(playerTurn, indexHand);
+        double[] kingdomCoord = PatternindexKingdomToCoord(playerTurn, indexKingdom);
 
         //Do the linear animation
-        PathTransition path = PathAnimationCard(handCoordX, handCoordY, kingdomCoordX, kingdomCoordY);
+        PathTransition path = PathAnimationCard(handCoord[0], handCoord[1], kingdomCoord[0], kingdomCoord[1]);
 
         FadeTransition fade = FadeAnimationCard();//Start the fade animation
         //Return the class style and reset the card
@@ -81,7 +69,7 @@ public class Animation {
     public FadeTransition FadeAnimationCard()
     {
         //Fade animation of the AnimationView
-        FadeTransition ft = new FadeTransition(Duration.millis(Game.delayAnimation[0]), AnimationView);
+        FadeTransition ft = new FadeTransition(Duration.millis(DELAY_ANIMATION[0]), AnimationView);
         ft.setFromValue(1.0);
         ft.setToValue(0);
         ft.setCycleCount(1);
@@ -104,7 +92,7 @@ public class Animation {
         path.getElements().add(new MoveTo(coordX,coordY));
         path.getElements().add(new LineTo(toCoordX,toCoordY));
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(Game.delayAnimation[1]));
+        pathTransition.setDuration(Duration.millis(DELAY_ANIMATION[1]));
         pathTransition.setPath(path);
         pathTransition.setNode(AnimationView);
         pathTransition.setCycleCount(1);
@@ -156,21 +144,9 @@ public class Animation {
     {
         blockAnimation = true;
 
-        double handCoordX = 0;
-        double handCoordY = 0;
-
-        //Each case
-        if(playerTurn == 1)
-        {
-            handCoordX = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoordY = HandPlayer1.getLayoutY()+60;
-        }
-        if(playerTurn == 2) {
-            handCoordX = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoordY = HandPlayer2.getLayoutY() + 60;
-        }
+        double[] handCoord = PatternIndexHandToCoord(playerTurn, indexHand);
         //Do the linear animation
-        PathTransition path = PathAnimationCard(625, 375, handCoordX, handCoordY);
+        PathTransition path = PathAnimationCard(DECK_COORD[0], DECK_COORD[1], handCoord[0], handCoord[1]);
 
         FadeTransition fade = FadeAnimationCard();//The fade animation
 
@@ -179,6 +155,39 @@ public class Animation {
         seqT.play();
         //Display the animated card
         AnimationView.setVisible(true);
+    }
+
+    public double[] PatternIndexHandToCoord(int playerTurn, int indexHand)
+    {
+        double[] handCoord = new double[2];
+
+        //Each case
+        if(playerTurn == 1)
+        {
+            handCoord[0] = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoord[1] = HandPlayer1.getLayoutY()+60;
+        }
+        if(playerTurn == 2) {
+            handCoord[0] = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoord[1] = HandPlayer2.getLayoutY() + 60;
+        }
+        return handCoord;
+    }
+
+    public double[] PatternindexKingdomToCoord(int playerTurn, int indexKingdom)
+    {
+        double[] kingdomCoord = new double[2];
+        //Each case
+        if(playerTurn == 1)
+        {
+            kingdomCoord[0] = KingdomPlayer1.getLayoutX()+36 + KingdomPlayer1.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoord[1] = KingdomPlayer1.getLayoutY()+50;
+        }
+        if(playerTurn == 2) {
+            kingdomCoord[0] = KingdomPlayer2.getLayoutX() + 36 + KingdomPlayer2.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoord[1] = KingdomPlayer2.getLayoutY() + 50;
+        }
+        return kingdomCoord;
     }
 
     public void EndDrawCardAnimation(int playerTurn, int indexHand, Card card, CountDownLatch latch)
@@ -196,10 +205,7 @@ public class Animation {
         {
             latch.countDown(); // Release await() in the test thread.
         }
-
     }
-
-
 
     public void FieldToReverse(String type, int player)
     {

@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.json.*;
 
@@ -50,6 +51,9 @@ public class Controller {
     GridPane HandPlayer2;
 
     @FXML
+    Text textDeckCardLeft;
+
+    @FXML
     private void numChange(ActionEvent event) {
         if(blockAnimation)
         {
@@ -77,10 +81,10 @@ public class Controller {
                 if(buttonInfo[0].getPlayer() == buttonInfo[1].getPlayer())//Same player card
                 {
                     //Check if it's a reverse card for the hand, the opposite for the kingdom
-                    if(IsCorrectCardType(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
+                    if(game.IsCorrectCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
                     {
-                        //System.out.println(s.lo);
-                        game.animation.AnimatePutCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId(), null);
+                        game.PlayTurn(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId());
+                        //game.ChangeTurn();
                     }
                 }
                 buttonInfo[0] = null;
@@ -89,6 +93,7 @@ public class Controller {
         }
     }
 
+    /*Hard check
     //Check if it is a correct card or only the reverse default card
     public boolean IsCorrectCardType(int playerTurn, int indexHand, int indexKingdom)
     {
@@ -108,7 +113,7 @@ public class Controller {
             }
         }
         return result;
-    }
+    }*/
 
     public CountDownLatch Play()
     {
@@ -117,7 +122,6 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        game = new Game(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2);
-
+        game = new Game(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, textDeckCardLeft);
     }
 }

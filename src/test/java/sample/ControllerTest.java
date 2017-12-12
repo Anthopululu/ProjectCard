@@ -43,13 +43,15 @@ public class ControllerTest extends ApplicationTest {
     public void handFilledInterface()
     {
         try {
-            controller.game.DrawMultipleCard(1, 5);
-            controller.game.DrawMultipleCard(2, 5);
+            controller.game.DrawMultipleCardWithoutAnimation(1, 5);
+            controller.game.DrawMultipleCardWithoutAnimation(2, 5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("end");
     }
+
+
 
     @Test
     public void AnimatePutCard() throws InterruptedException {
@@ -61,8 +63,8 @@ public class ControllerTest extends ApplicationTest {
 
     @Test
     public void DrawFirstCard() throws InterruptedException {
-        CountDownLatch latch = controller.Play();
-        latch.await();
+        controller.game.DrawMultipleCard(1, 5);
+        controller.game.DrawMultipleCard(2, 5);
     }
 
 }
