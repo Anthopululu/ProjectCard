@@ -181,8 +181,8 @@ public class Game {
             @Override
             public void run() {
                 try {
-                    DrawMultipleCardWithoutAnimationInterface(1, 5);
-                    DrawMultipleCardWithoutAnimationInterface(2, 5);
+                    DrawMultipleCard(1, 5);
+                    DrawMultipleCard(2, 5);
                     latch.countDown();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
