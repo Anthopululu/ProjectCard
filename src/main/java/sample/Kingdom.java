@@ -6,17 +6,17 @@ public class Kingdom {
 
     List<Card> kingdom;
 
-    public List getKingdom() {
-        return this.kingdom;
+    public Kingdom()
+    {
+        this.kingdom = ListCard.InitialiseListCard(10);
     }
 
     public Kingdom(List<Card> kingdom) {
         this.kingdom = kingdom;
     }
 
-    public Kingdom()
-    {
-        this.kingdom = Game.InitialiseListCard(10);
+    public List<Card> getKingdom() {
+        return this.kingdom;
     }
 
     public void setKingdom(List<Card> kingdom) {
@@ -28,15 +28,25 @@ public class Kingdom {
         return kingdom.set(indexHand, card);
     }
 
+    public boolean IsDefaultCard(int indexKingdom)
+    {
+        return kingdom.get(indexKingdom).equals(Card.DEFAULT_CARD);
+    }
+
+    public int size()
+    {
+        return kingdom.size();
+    }
+
     public Card PutCard(Hand hand, int indexHand, int indexKingdom)
     {
 
         //Replace it by a default card
         Card card = hand.set(indexHand, new DefaultCard());
-        kingdom.set(indexKingdom, card);
+        Card card2 = kingdom.set(indexKingdom, card);
         //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
         //Not use yet
-        card.toKingdom();
+        card2.toKingdom();
         return card;
     }
 
@@ -57,5 +67,10 @@ public class Kingdom {
 
     public Card get(int index) {
         return kingdom.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return kingdom.toString();
     }
 }

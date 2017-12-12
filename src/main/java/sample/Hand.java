@@ -23,7 +23,7 @@ public class Hand {
 
     public Hand()
     {
-        listOfCards = Game.InitialiseListCard(10);
+        listOfCards = ListCard.InitialiseListCard(10);
     }
 
     public List getHand() {
@@ -44,6 +44,11 @@ public class Hand {
         //Add it in the hand
         listOfCards.set(indexHand, card);
         return card;
+    }
+
+    public boolean IsDefaultCard(int indexHand)
+    {
+        return listOfCards.get(indexHand).equals(Card.DEFAULT_CARD);
     }
 
     /***
@@ -143,5 +148,10 @@ public class Hand {
 
     public Card get(int index) {
         return listOfCards.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return listOfCards.toString();
     }
 }

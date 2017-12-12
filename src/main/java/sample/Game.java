@@ -33,6 +33,7 @@ public class Game {
     {
         //Cucumber test initialization. Logic test.
         deck = new ArrayList();
+        this.CreateDeck();
         kingdomPlayer = Arrays.asList(new Kingdom(), new Kingdom());
         handPlayer = Arrays.asList(new Hand(), new Hand());
         playerTurn = 1;
@@ -56,11 +57,11 @@ public class Game {
         boolean result = true;
         if(player == playerTurn)
         {
-            if(handPlayer.get(player-1).get(indexHand).equals(Card.DEFAULT_CARD))
+            if(handPlayer.get(player-1).IsDefaultCard(indexHand))
             {
                 result = false;
             }
-            if(!kingdomPlayer.get(player-1).get(indexKingdom).equals(Card.DEFAULT_CARD))
+            if(!kingdomPlayer.get(player-1).IsDefaultCard(indexKingdom))
             {
                 result = false;
             }
@@ -72,15 +73,7 @@ public class Game {
         return result;
     }
 
-    public static List<Card> InitialiseListCard(int number)
-    {
-            List<Card> result = new ArrayList<>();
-            for(int i = 0; i < number;i++)
-            {
-                    result.add(new DefaultCard());
-            }
-            return result;
-    }
+
 
     public List<Card> CreateDeck(){
             for (int i = 0; i < NB_CARD_DECK; i++) {
@@ -114,7 +107,7 @@ public class Game {
         animation.AnimateDrawCard(player,indexHand, card, latch);
     }
 
-    void UpdateMessageDeckCardLeft()
+    public void UpdateMessageDeckCardLeft()
     {
         textDeckCardLeft.setText("Card Left " + deck.size());
     }
@@ -123,7 +116,7 @@ public class Game {
         for(int i = 0; i < nb;i++)
         {
             CountDownLatch latch = new CountDownLatch(1);
-            int indexHand = SequenceNumberMiddle10(i);
+            int indexHand = ListCard.FindIndex(i);
             DrawCard(player,indexHand, latch);
             //Wait the end of the animation
             latch.await();
@@ -137,33 +130,49 @@ public class Game {
         kingdomPlayer.get(player-1).PutCard(handPlayer.get(player-1), indexHand,  indexKingdom);
     }
 
-    /*Junit test method*/
-    public void DrawCardWithoutAnimation(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
+    public void putCardWithoutInterface(int player)
+    {
+        int indexHand = ListCard.NextFillIndex(handPlayer.get(player-1).getListOfCards());
+        int indexKingdom = ListCard.NextEmptyIndex(kingdomPlayer.get(player-1).getKingdom());
+        if(indexHand > 0 & indexKingdom > 0)
+        {
+            kingdomPlayer.get(player-1).PutCard(handPlayer.get(player-1), indexHand,  indexKingdom);
+        }
+    }
+
+    /*Junit interface test method*/
+    public void DrawCardWithoutAnimationInterface(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
         Card card = handPlayer.get(player-1).DrawCard(deck, indexHand);
         animation.EndDrawCardAnimation(player,indexHand, card, latch);
     }
 
-    public void DrawMultipleCardWithoutAnimation(int player, int nb) throws InterruptedException {
+    public void DrawMultipleCardWithoutAnimationInterface(int player, int nb) throws InterruptedException {
         for(int i = 0; i < nb;i++)
         {
             CountDownLatch latch = new CountDownLatch(1);
-            int indexHand = SequenceNumberMiddle10(i);
-            DrawCardWithoutAnimation(player,indexHand, latch);
+            int indexHand = ListCard.FindIndex(i);
+            DrawCardWithoutAnimationInterface(player,indexHand, latch);
             latch.await();
         }
         UpdateMessageDeckCardLeft();
     }
-    /*End of junit test method*/
+    /*End of junit interface test method*/
 
-    //To get the right index of the card to add. Starting from the middle
-    public int SequenceNumberMiddle10(int index)
-    {
-        int u0 = 5;
-        double t = Math.pow(-1, index);
-        double i = Math.ceil((double)index/2);
-        int result = (int)(u0 + t * i);
-        return result;
+    /*Cucumber test method*/
+    public void DrawCardWithoutInterface(int player, int indexHand) throws InterruptedException {
+        handPlayer.get(player-1).DrawCard(deck, indexHand);
     }
+
+    public void DrawMultipleCardWithoutInterface(int player, int nb) throws InterruptedException {
+        for(int i = 0; i < nb;i++)
+        {
+            int indexHand = ListCard.FindIndex(i);
+            DrawCardWithoutInterface(player,indexHand);
+        }
+    }
+    /*End of cucumber test method*/
+
+
 
     public CountDownLatch Play()
     {
@@ -172,8 +181,8 @@ public class Game {
             @Override
             public void run() {
                 try {
-                    DrawMultipleCardWithoutAnimation(1, 5);
-                    DrawMultipleCardWithoutAnimation(2, 5);
+                    DrawMultipleCardWithoutAnimationInterface(1, 5);
+                    DrawMultipleCardWithoutAnimationInterface(2, 5);
                     latch.countDown();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -202,13 +211,36 @@ public class Game {
         {
             playerTurn = 1;
         }
-        int indexHand = nextEmptyIndexSequenceNumberMiddle10(playerTurn);
-        indexHand = SequenceNumberMiddle10(indexHand);
+        //First index free, starting from the middle to the edge of the platform
+        int indexHand = ListCard.NextEmptyIndex(handPlayer.get(playerTurn-1).getListOfCards());
         //Draw card if we have some place in the list card
         if(indexHand > -1)
         {
             try {
                 DrawCard(playerTurn,indexHand,null);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void ChangeTurnWithoutInterface()
+    {
+        if(playerTurn == 1)
+        {
+            playerTurn = 2;
+        }
+        else
+        {
+            playerTurn = 1;
+        }
+        //First index free, starting from the middle to the edge of the platform
+        int indexHand = ListCard.NextEmptyIndex(handPlayer.get(playerTurn-1).getListOfCards());
+        //Draw card if we have some place in the list card
+        if(indexHand > -1)
+        {
+            try {
+                DrawCardWithoutInterface(playerTurn,indexHand);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -234,32 +266,16 @@ public class Game {
         t.start();
     }
 
-    //Where to add the next card drawn
-    public int nextEmptyIndexSequenceNumberMiddle10(int player)
+    public void PlayTurnWithoutInterface()
     {
-        int result = 0;
-        //Check if exists
-        if(handPlayer.get(player-1).contains(Card.DEFAULT_CARD))
-        {
-            int i = 0;
-            Card card = handPlayer.get(player-1).get(SequenceNumberMiddle10(i));
-            while(!card.equals(Card.DEFAULT_CARD))
-            {
-                i++;
-                card = handPlayer.get(player-1).get(SequenceNumberMiddle10(i));
-            }
-            result = i;
-        }
-        else
-        {
-            result = -1;
-        }
-        return result;
+        putCardWithoutInterface(playerTurn);
+        ChangeTurnWithoutInterface();
     }
 
     @Override
     public String toString() {
-        return "handPlayer1=" + handPlayer.get(0) +
+        return "Player turn : " + playerTurn +
+                "\nhandPlayer1=" + handPlayer.get(0) +
                 "\nkingdomPlayer1=" + kingdomPlayer.get(0) +
                 "\nhandPlayer2=" + handPlayer.get(1) +
                 "\nkingdomPlayer2=" + kingdomPlayer.get(1);

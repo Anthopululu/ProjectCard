@@ -43,8 +43,8 @@ public class ControllerTest extends ApplicationTest {
     public void handFilledInterface()
     {
         try {
-            controller.game.DrawMultipleCardWithoutAnimation(1, 5);
-            controller.game.DrawMultipleCardWithoutAnimation(2, 5);
+            controller.game.DrawMultipleCardWithoutAnimationInterface(1, 5);
+            controller.game.DrawMultipleCardWithoutAnimationInterface(2, 5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
