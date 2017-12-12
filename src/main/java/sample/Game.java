@@ -1,17 +1,9 @@
 package sample;
 
 import javafx.animation.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -24,12 +16,14 @@ import java.util.concurrent.CountDownLatch;
 
 public class Game {
     static int NB_CARD = 10;//Number of card in the hand and in the kingdom
-    static int NB_CARD_DECK = 45;
+    static int NB_CARD_DECK = 45;//Number of card in the deck
     List<Card> deck;
-    List<List<Card>> handPlayer;
-    List<List<Card>> kingdomPlayer;
-    boolean blockAnimation = false;
-    int playerTurn;
+    List<List<Card>> handPlayer;//HandPlayer.get(0) = Hand player 1, HandPlayer.get(1) = Hand player 2
+    List<List<Card>> kingdomPlayer;//KingdomPlayer.get(0) = Kingdom player 1, KingdomPlayer.get(1) = Kingdom player 2
+    boolean blockAnimation = false;//If we are allowed to put card/use power or if we need to wait the end of the animation of other things
+    int playerTurn;//1 = Player 1, 2 = Player 2
+    //Be careful about list, all of them start at 0, whereas the player start at 1
+    //Animation start at 1 too
 
     Animation animation;
 
@@ -37,27 +31,28 @@ public class Game {
 
     public Game()
     {
-            //playerTurn = 1;
-            deck = new ArrayList();
-            kingdomPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
-            handPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
-            playerTurn = 1;
+        //Cucumer test initialization. Logic test
+        deck = new ArrayList();
+        kingdomPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
+        handPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
+        playerTurn = 1;
     }
 
     public Game(ImageView AnimationView,GridPane KingdomPlayer1,GridPane KingdomPlayer2,GridPane HandPlayer1,GridPane HandPlayer2, Text textDeckCardLeft)
     {
+        //Interface test, game with interface
         deck = new ArrayList();
         this.CreateDeck();
         kingdomPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
         handPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
         animation = new Animation(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, blockAnimation);
         this.textDeckCardLeft = textDeckCardLeft;
-
         playerTurn = 1;
     }
 
     public boolean IsCorrectCard(int player, int indexHand, int indexKingdom)
     {
+        //Check if we can put a card or not. Check if the card is not a default card on the hand (reverse) or if it one on the kingdom.
         boolean result = true;
         if(player == playerTurn)
         {
@@ -109,15 +104,18 @@ public class Game {
                     if (n == 5) {
                             deck.add(new Korrigan());
                     }
-
             }
             return deck;
     }
 
     public void DrawCard(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
+        //Remove it from the deck
         Card card = deck.remove(deck.size()-1);
         UpdateMessageDeckCardLeft();
+        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
+        //Not use yet
         card.toHand();
+        //Add it in the hand
         handPlayer.get(player-1).set(indexHand, card);
         animation.AnimateDrawCard(player,indexHand, card, latch);
     }
@@ -133,15 +131,20 @@ public class Game {
             CountDownLatch latch = new CountDownLatch(1);
             int indexHand = SequenceNumberMiddle10(i);
             DrawCard(player,indexHand, latch);
+            //Wait the end of the animation
             latch.await();
+
         }
     }
 
     public void putCard(int player, int indexHand, int indexKingdom, CountDownLatch latch)
     {
         animation.AnimatePutCard(player, indexHand, indexKingdom, latch);
-        Card card =  handPlayer.get(player-1).set(indexHand, new DefaultCard());
+        //Replace it by a default card
+        Card card = handPlayer.get(player-1).set(indexHand, new DefaultCard());
         kingdomPlayer.get(player-1).set(indexKingdom, card);
+        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
+        //Not use yet
         card.toKingdom();
     }
 
@@ -163,6 +166,8 @@ public class Game {
         UpdateMessageDeckCardLeft();
     }
     /*End of junit test method*/
+
+    //To get the right index of the card to add. Starting from the middle
     public int SequenceNumberMiddle10(int index)
     {
         int u0 = 5;
@@ -188,6 +193,7 @@ public class Game {
             }
         });
 
+        //Need time to initialize the interface. Don't know how to do otherwise
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(500),
                 (ActionEvent ae) -> {
@@ -219,7 +225,6 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        //DrawCard(playerTurn,);
     }
 
     public void PlayTurn(int player, int indexHand, int indexKingdom)
@@ -230,6 +235,7 @@ public class Game {
                 CountDownLatch latch = new CountDownLatch(1);
                 putCard(player, indexHand, indexKingdom, latch);
                 try {
+                    //Wait the end of the animation
                     latch.await();
                     ChangeTurn();
                 } catch (InterruptedException e) {
@@ -240,6 +246,7 @@ public class Game {
         t.start();
     }
 
+    //Where to add the next card drawn
     public int nextEmptyIndexSequenceNumberMiddle10(int player)
     {
         int result = 0;

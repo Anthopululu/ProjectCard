@@ -48,7 +48,6 @@ public class ControllerTest extends ApplicationTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("end");
     }
 
 

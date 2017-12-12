@@ -1,6 +1,5 @@
 package sample;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,7 +8,7 @@ public abstract class Card {
     String name;
     boolean isHand;
     boolean isKingdom;
-    static Card DEFAULT_CARD = new DefaultCard();
+    static DefaultCard DEFAULT_CARD = new DefaultCard();//The default card
     boolean isDeck;
 
     public Card()//To have an heritage
