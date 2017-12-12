@@ -23,7 +23,7 @@ public class Hand {
 
     public Hand()
     {
-        listOfCards = new ArrayList<Card>();
+        listOfCards = Game.InitialiseListCard(10);
     }
 
     public List getHand() {
@@ -32,6 +32,18 @@ public class Hand {
 
     public void setHand(List<Card> hand) {
         this.listOfCards = hand;
+    }
+
+    public Card DrawCard(List<Card> deck, int indexHand)
+    {
+        //Remove it from the deck
+        Card card = deck.remove(deck.size()-1);
+        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
+        //Not use yet
+        card.toHand();
+        //Add it in the hand
+        listOfCards.set(indexHand, card);
+        return card;
     }
 
     /***
@@ -103,6 +115,16 @@ public class Hand {
         if(listOfCards.isEmpty())
             return true;
         else return false;
+    }
+
+    public Card set(int indexHand, Card card)
+    {
+        return listOfCards.set(indexHand, card);
+    }
+
+    public boolean contains(Card card)
+    {
+        return listOfCards.contains(card);
     }
 
     public void deleteIndex(int index)

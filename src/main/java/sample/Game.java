@@ -18,8 +18,8 @@ public class Game {
     static int NB_CARD = 10;//Number of card in the hand and in the kingdom
     static int NB_CARD_DECK = 45;//Number of card in the deck
     List<Card> deck;
-    List<List<Card>> handPlayer;//HandPlayer.get(0) = Hand player 1, HandPlayer.get(1) = Hand player 2
-    List<List<Card>> kingdomPlayer;//KingdomPlayer.get(0) = Kingdom player 1, KingdomPlayer.get(1) = Kingdom player 2
+    List<Hand> handPlayer;//HandPlayer.get(0) = Hand player 1, HandPlayer.get(1) = Hand player 2
+    List<Kingdom> kingdomPlayer;//KingdomPlayer.get(0) = Kingdom player 1, KingdomPlayer.get(1) = Kingdom player 2
     boolean blockAnimation = false;//If we are allowed to put card/use power or if we need to wait the end of the animation of other things
     int playerTurn;//1 = Player 1, 2 = Player 2
     //Be careful about list, all of them start at 0, whereas the player start at 1
@@ -31,10 +31,10 @@ public class Game {
 
     public Game()
     {
-        //Cucumer test initialization. Logic test
+        //Cucumber test initialization. Logic test.
         deck = new ArrayList();
-        kingdomPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
-        handPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
+        kingdomPlayer = Arrays.asList(new Kingdom(), new Kingdom());
+        handPlayer = Arrays.asList(new Hand(), new Hand());
         playerTurn = 1;
     }
 
@@ -43,8 +43,8 @@ public class Game {
         //Interface test, game with interface
         deck = new ArrayList();
         this.CreateDeck();
-        kingdomPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
-        handPlayer = Arrays.asList(InitialiseListCard(10), InitialiseListCard(10));
+        kingdomPlayer = Arrays.asList(new Kingdom(), new Kingdom());
+        handPlayer = Arrays.asList(new Hand(), new Hand());
         animation = new Animation(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, blockAnimation);
         this.textDeckCardLeft = textDeckCardLeft;
         playerTurn = 1;
@@ -72,7 +72,7 @@ public class Game {
         return result;
     }
 
-    public List<Card> InitialiseListCard(int number)
+    public static List<Card> InitialiseListCard(int number)
     {
             List<Card> result = new ArrayList<>();
             for(int i = 0; i < number;i++)
@@ -109,14 +109,8 @@ public class Game {
     }
 
     public void DrawCard(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
-        //Remove it from the deck
-        Card card = deck.remove(deck.size()-1);
+        Card card = handPlayer.get(player-1).DrawCard(deck, indexHand);
         UpdateMessageDeckCardLeft();
-        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
-        //Not use yet
-        card.toHand();
-        //Add it in the hand
-        handPlayer.get(player-1).set(indexHand, card);
         animation.AnimateDrawCard(player,indexHand, card, latch);
     }
 
@@ -140,19 +134,13 @@ public class Game {
     public void putCard(int player, int indexHand, int indexKingdom, CountDownLatch latch)
     {
         animation.AnimatePutCard(player, indexHand, indexKingdom, latch);
-        //Replace it by a default card
-        Card card = handPlayer.get(player-1).set(indexHand, new DefaultCard());
-        kingdomPlayer.get(player-1).set(indexKingdom, card);
-        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
-        //Not use yet
-        card.toKingdom();
+        kingdomPlayer.get(player-1).PutCard(handPlayer.get(player-1), indexHand,  indexKingdom);
     }
 
     /*Junit test method*/
     public void DrawCardWithoutAnimation(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
-        Card card = deck.remove(deck.size()-1);
+        Card card = handPlayer.get(player-1).DrawCard(deck, indexHand);
         animation.EndDrawCardAnimation(player,indexHand, card, latch);
-        handPlayer.get(player-1).set(indexHand, card);
     }
 
     public void DrawMultipleCardWithoutAnimation(int player, int nb) throws InterruptedException {
