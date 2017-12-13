@@ -5,14 +5,22 @@ import java.util.List;
 public class Kingdom {
 
     List<Card> kingdom;
+    String name;
 
     public Kingdom()
     {
-        this.kingdom = ListCard.InitialiseListCard(10);
+        this.name = "KingdomPlayer";
+        ResetKingdom();
     }
 
     public Kingdom(List<Card> kingdom) {
+
         this.kingdom = kingdom;
+    }
+
+    public void ResetKingdom()
+    {
+        this.kingdom = ListCard.InitialiseListCard(10);
     }
 
     public List<Card> getKingdom() {
@@ -27,6 +35,10 @@ public class Kingdom {
     {
         return kingdom.set(indexHand, card);
     }
+
+    public String getName(){return this.name;}
+
+    public void setName(String name){ this.name = name;}
 
     public boolean IsDefaultCard(int indexKingdom)
     {

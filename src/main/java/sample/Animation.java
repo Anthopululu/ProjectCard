@@ -44,7 +44,7 @@ public class Animation {
         this.blockAnimation = blockAnimation;
     }
 
-    public void AnimatePutCard(int playerTurn, int indexHand, int indexKingdom, CountDownLatch latch)
+    public void AnimatePutCard(int playerTurn, int indexHand, int indexKingdom, Card card, CountDownLatch latch)
     {
         blockAnimation = true;
         //Coordinate where the animation trigger and stop
@@ -56,11 +56,12 @@ public class Animation {
 
         FadeTransition fade = FadeAnimationCard();//Start the fade animation
         //Return the class style and reset the card
-        ObservableList<String> tmp = resetCard(true, playerTurn, indexHand);
+
+        resetCard(true, playerTurn, indexHand);
 
         SequentialTransition seqT = new SequentialTransition (path, fade);
         seqT.play();
-        seqT.setOnFinished(e -> putCard(playerTurn, indexKingdom, tmp, latch));//Put the card at the end of fade animation. Delay function included);
+        seqT.setOnFinished(e -> putCard(playerTurn, indexKingdom, card, latch));//Put the card at the end of fade animation. Delay function included);
 
         //Display the animated card
         AnimationView.setVisible(true);
@@ -99,13 +100,13 @@ public class Animation {
         return pathTransition;
     }
 
-    public void putCard(int playerTurn, int indexKingdom, ObservableList<String> card, CountDownLatch latch)
+    public void putCard(int playerTurn, int indexKingdom, Card card, CountDownLatch latch)
     {
         Scene s = AnimationView.getScene();
         //Change the image of the button in the index
         Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + (indexKingdom));
         kingdomCard.getStyleClass().clear();
-        kingdomCard.getStyleClass().addAll(card);
+        kingdomCard.getStyleClass().addAll(card.getClassString());
         blockAnimation = false;
 
         if(latch != null)
@@ -114,8 +115,9 @@ public class Animation {
         }
     }
 
-    public ObservableList<String> resetCard(boolean isHand, int playerTurn, int index)
+    public void resetCard(boolean isHand, int playerTurn, int index)
     {
+
         Scene s = AnimationView.getScene();
         String tmpString = "";
         if(isHand)
@@ -126,18 +128,13 @@ public class Animation {
         {
             tmpString = "Kingdom";
         }
-        Button handCard = (Button) s.lookup("#"+tmpString+"Player"+playerTurn+"_Card" + index);
+        tmpString ="#"+tmpString+"Player"+playerTurn+"_Card" + index;
 
-        //Copy the value, not the pointer
-        ObservableList<String> tmp = FXCollections.observableArrayList( handCard.getStyleClass());
-
+        Button handCard = (Button) s.lookup(tmpString);
         //Set to default card
         handCard.getStyleClass().clear();
         DefaultCard d = new DefaultCard();
         handCard.getStyleClass().addAll(d.getClassString());
-
-        //Return the class of the card deleted
-        return tmp;
     }
 
     public void AnimateDrawCard(int playerTurn, int indexHand, Card card, CountDownLatch latch)
@@ -207,17 +204,9 @@ public class Animation {
         }
     }
 
-    public void FieldToReverse(String type, int player)
+    public void FieldToReverse(int player)
     {
-        String name = "";
-        if(type == "kingdom")
-        {
-            name = "#KingdomPlayer"+player+"_Card";
-        }
-        if(type == "hand")
-        {
-            name = "#HandPlayer"+player+"_Card";
-        }
+        String name = "#KingdomPlayer" + player + "_Card";
 
         for(int i = 0; i < Game.NB_CARD; i++)
         {

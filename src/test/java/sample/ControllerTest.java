@@ -38,13 +38,11 @@ public class ControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    //@Given("^my hand is filled$")
-
     public void handFilledInterface()
     {
         try {
-            controller.game.DrawMultipleCardWithoutAnimationInterface(1, 5);
-            controller.game.DrawMultipleCardWithoutAnimationInterface(2, 5);
+            controller.DrawMultipleCardWithoutAnimationInterface(1, 5);
+            controller.DrawMultipleCardWithoutAnimationInterface(2, 5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -56,14 +54,26 @@ public class ControllerTest extends ApplicationTest {
     public void AnimatePutCard() throws InterruptedException {
         handFilledInterface();
         CountDownLatch latch = new CountDownLatch(1);
-        controller.game.animation.AnimatePutCard(2,3, 3, latch);
+        Card card = Game.RandomCard();
+        controller.animation.AnimatePutCard(2,3, 3, card, latch);
         latch.await();
     }
 
     @Test
     public void DrawFirstCard() throws InterruptedException {
-        controller.game.DrawMultipleCard(1, 5);
-        controller.game.DrawMultipleCard(2, 5);
+        controller.DrawMultipleCard(1, 5);
+        controller.DrawMultipleCard(2, 5);
+    }
+
+    @Test
+    public void ReverseField() throws InterruptedException {
+        controller.DrawMultipleCardWithoutAnimationInterface(1,5);
+        controller.DrawMultipleCardWithoutAnimationInterface(2,5);
+        controller.PlayRandomTurnWithoutAnimation(20);
+        Thread.sleep(100);
+        CountDownLatch latch = new CountDownLatch(1);
+        controller.PlayRandomTurn(1, latch);
+        latch.await();
     }
 
 }

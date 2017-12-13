@@ -24,12 +24,8 @@ import java.util.concurrent.CountDownLatch;
 
 
 public class Controller {
-    // 0 : Fade animation delay, 1 : Path Animation Duration
-    int[] delayAnimation = { 500, 500};
 
     boolean blockAnimation = false;
-
-    int NB_CARD = 10;//Number of card in the hand and in the kingdom
 
     ButtonPressInformation[] buttonInfo = { null, null };
 
@@ -52,6 +48,8 @@ public class Controller {
 
     @FXML
     Text textDeckCardLeft;
+
+    Animation animation;
 
     @FXML
     private void numChange(ActionEvent event) {
@@ -83,7 +81,7 @@ public class Controller {
                     //Check if it's a reverse card for the hand, the opposite for the kingdom
                     if(game.IsCorrectCard(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId()))
                     {
-                        game.PlayTurn(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId());
+                        PlayTurn(u.getPlayer(), buttonInfo[0].getId(), buttonInfo[1].getId(), null);
                         //game.ChangeTurn();
                     }
                 }
@@ -115,13 +113,171 @@ public class Controller {
         return result;
     }*/
 
+    public void DrawCard(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
+        Card card = game.playerList.get(player-1).getHand().DrawCard(game.deck, indexHand);
+        UpdateMessageDeckCardLeft();
+        animation.AnimateDrawCard(player,indexHand, card, latch);
+    }
+
+    public void DrawMultipleCard(int player, int nb) throws InterruptedException {
+        for(int i = 0; i < nb;i++)
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+            int indexHand = ListCard.FindIndex(i);
+            DrawCard(player,indexHand, latch);
+            //Wait the end of the animation
+            latch.await();
+
+        }
+    }
+
+    public void UpdateMessageDeckCardLeft()
+    {
+        textDeckCardLeft.setText("Card Left " + game.deck.size());
+    }
+
+    public void PlayGame()
+    {
+        try {
+            DrawMultipleCard(1, 5);
+            DrawMultipleCard(2, 5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public CountDownLatch Play()
     {
-        return game.Play();
+        CountDownLatch latch = new CountDownLatch(1);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PlayGame();
+                latch.countDown();
+            }
+        });
+
+        //Need time to initialize the interface. Don't know how to do otherwise
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(500),
+                (ActionEvent ae) -> {
+                    t.start();
+                }));
+        timeline.play();
+
+        return latch;
     }
+
+    public void PlayRandomTurn(int nb, CountDownLatch latch)
+    {
+        for(int i = 0; i < nb;i++)
+        {
+            int indexHand = game.NextCardHand();
+            int indexKingdom = game.NextEmptyPlaceKingdom();
+            PlayTurn(game.playerTurn, indexHand, indexKingdom, latch);
+        }
+    }
+
+    public void PlayRandomTurnWithoutAnimation(int nb)
+    {
+        for(int i = 0; i < nb;i++)
+        {
+            int indexHand = game.NextCardHand();
+            int indexKingdom = game.NextEmptyPlaceKingdom();
+            PlayTurnWithoutAnimation(game.playerTurn, indexHand, indexKingdom);
+        }
+    }
+
+
+    public void PlayTurnWithoutAnimation(int player, int indexHand, int indexKingdom)
+    {
+        animation.resetCard(true, player, indexHand);
+        Card card = game.putCard(player, indexHand, indexKingdom);
+        animation.putCard(player, indexKingdom, card, null);
+        //Do a draw card in
+        game.ChangeTurn();
+        if(game.ShouldDrawCard())
+        {
+            try {
+                int indexHandNextEmpty = game.NextEmptyIndex();
+                DrawCardWithoutAnimationInterface(game.playerTurn,indexHandNextEmpty);
+                //game.DrawCardWithoutInterface(game.playerTurn, indexHand);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        if(game.ShouldResetKingdom())
+        {
+            ResetKingdom(game.playerTurn);
+        }
+    }
+
+    public void PlayTurn(int player, int indexHand, int indexKingdom, CountDownLatch latch)
+    {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CountDownLatch latch2 = new CountDownLatch(1);
+                Card card = game.putCard(player, indexHand, indexKingdom);
+                animation.AnimatePutCard(player, indexHand, indexKingdom, card, latch2);
+                try {
+                    //Wait the end of the animation
+                    latch2.await();
+                    //Do a draw card in
+                    game.ChangeTurn();
+                    if(game.ShouldResetKingdom())
+                    {
+                        ResetKingdom(game.playerTurn);
+                    }
+                    if(game.ShouldDrawCard())
+                    {
+                        try {
+                            int indexHandNextEmpty = game.NextEmptyIndex();
+                            DrawCard(game.playerTurn,indexHandNextEmpty, latch);
+                            //game.DrawCardWithoutInterface(game.playerTurn, indexHand);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else
+                    {
+                        latch.countDown();
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+    }
+
+    public void ResetKingdom(int indexKingdom)
+    {
+        animation.FieldToReverse(game.playerTurn);
+        game.ResetKingdom();
+    }
+
+    /*Junit interface test method*/
+    public void DrawCardWithoutAnimationInterface(int player, int indexHand) throws InterruptedException {
+        Card card = game.playerList.get(player-1).getHand().DrawCard(game.deck, indexHand);
+        animation.EndDrawCardAnimation(player,indexHand, card, null);
+        UpdateMessageDeckCardLeft();
+    }
+
+    public void DrawMultipleCardWithoutAnimationInterface(int player, int nb) throws InterruptedException {
+        for(int i = 0; i < nb;i++)
+        {
+            int indexHand = ListCard.FindIndex(i);
+            DrawCardWithoutAnimationInterface(player,indexHand);
+        }
+        UpdateMessageDeckCardLeft();
+    }
+    /*End of junit interface test method*/
 
     @FXML
     public void initialize() {
-        game = new Game(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, textDeckCardLeft);
+        game = new Game();
+        animation = new Animation(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, blockAnimation);
     }
 }

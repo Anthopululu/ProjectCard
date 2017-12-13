@@ -36,13 +36,17 @@ public class Hand {
 
     public Card DrawCard(List<Card> deck, int indexHand)
     {
-        //Remove it from the deck
-        Card card = deck.remove(deck.size()-1);
-        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
-        //Not use yet
-        card.toHand();
-        //Add it in the hand
-        listOfCards.set(indexHand, card);
+        Card card = null;
+        if(deck.size() > 0)
+        {
+            //Remove it from the deck
+            card = deck.remove(deck.size()-1);
+            //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
+            //Not use yet
+            card.toHand();
+            //Add it in the hand
+            listOfCards.set(indexHand, card);
+        }
         return card;
     }
 

@@ -14,6 +14,6 @@ import java.io.IOException;
 
 
 @RunWith(Cucumber.class)
-public class ControllerCucumberTest {
+public class CucumberTest {
 
 }
