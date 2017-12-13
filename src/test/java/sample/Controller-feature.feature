@@ -7,6 +7,10 @@ Feature: Draw Card
 
  Scenario: Play one turn
    Given My game is started
-   Then Random play turn player
-   Then Random play turn player
+   Then Random play turn
+   And Random play turn
 
+ Scenario: Reset a kingdom
+  Given My game will reset kingdom
+  Then Play a turn and reset
+  Then Play a turn and reset

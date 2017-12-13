@@ -91,7 +91,7 @@ public class Game {
     {
         int indexHand = ListCard.NextFillIndex(playerList.get(player-1).getCardHand());
         int indexKingdom = ListCard.NextEmptyIndex(playerList.get(player-1).getCardKingdom());
-        if(indexHand > 0 & indexKingdom > 0)
+        if(indexHand >= 0 & indexKingdom >= 0)
         {
             putCard(player, indexHand,  indexKingdom);
         }
@@ -129,16 +129,19 @@ public class Game {
         {
             playerTurn = 1;
         }
-        //First index free, starting from the middle to the edge of the platform
-        int indexHand = ListCard.NextEmptyIndex(playerList.get(playerTurn-1).getHand().getListOfCards());
-        //Draw card if we have some place in the list card
-        if(indexHand > -1)
+
+        if(ShouldDrawCard())
         {
             try {
-                DrawCard(playerTurn,indexHand);
+                int indexHandNextEmpty = NextEmptyIndex();
+                DrawCard(playerTurn, indexHandNextEmpty);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        if(ShouldResetKingdom())
+        {
+            ResetKingdom();
         }
     }
 
@@ -146,6 +149,14 @@ public class Game {
     {
         putCardRandom(playerTurn);
         ChangeTurnWithoutInterface();
+    }
+
+    public void PlayMultipleTurnRandom(int nb)
+    {
+        for(int i = 0; i < nb;i++)
+        {
+            PlayTurnRandom();
+        }
     }
 
     public void ChangeTurn()

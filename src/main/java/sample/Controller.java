@@ -85,6 +85,7 @@ public class Controller {
                         //game.ChangeTurn();
                     }
                 }
+                //Reset the button
                 buttonInfo[0] = null;
                 buttonInfo[1] = null;
             }
