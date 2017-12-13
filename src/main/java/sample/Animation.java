@@ -1,9 +1,6 @@
 package sample;
 
 import javafx.animation.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -19,13 +16,13 @@ public class Animation {
 
     ImageView AnimationView;
 
+    GridPane KingdomPlayer0;
+
     GridPane KingdomPlayer1;
 
-    GridPane KingdomPlayer2;
+    GridPane HandPlayer0;
 
     GridPane HandPlayer1;
-
-    GridPane HandPlayer2;
 
     boolean blockAnimation;
 
@@ -34,13 +31,13 @@ public class Animation {
 
     final double[] DECK_COORD = {625, 375};
 
-    public Animation(ImageView AnimationView,GridPane KingdomPlayer1,GridPane KingdomPlayer2,GridPane HandPlayer1,GridPane HandPlayer2, boolean blockAnimation)
+    public Animation(ImageView AnimationView, GridPane KingdomPlayer0, GridPane KingdomPlayer1, GridPane HandPlayer0, GridPane HandPlayer1, boolean blockAnimation)
     {
         this.AnimationView = AnimationView;
+        this.KingdomPlayer0 = KingdomPlayer0;
         this.KingdomPlayer1 = KingdomPlayer1;
-        this.KingdomPlayer2 = KingdomPlayer2;
+        this.HandPlayer0 = HandPlayer0;
         this.HandPlayer1 = HandPlayer1;
-        this.HandPlayer2 = HandPlayer2;
         this.blockAnimation = blockAnimation;
     }
 
@@ -159,14 +156,14 @@ public class Animation {
         double[] handCoord = new double[2];
 
         //Each case
-        if(playerTurn == 1)
+        if(playerTurn == 0)
         {
-            handCoord[0] = HandPlayer1.getLayoutX()+36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoord[1] = HandPlayer1.getLayoutY()+60;
+            handCoord[0] = HandPlayer0.getLayoutX()+36 + HandPlayer0.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoord[1] = HandPlayer0.getLayoutY()+60;
         }
-        if(playerTurn == 2) {
-            handCoord[0] = HandPlayer2.getLayoutX() + 36 + HandPlayer2.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
-            handCoord[1] = HandPlayer2.getLayoutY() + 60;
+        if(playerTurn == 1) {
+            handCoord[0] = HandPlayer1.getLayoutX() + 36 + HandPlayer1.getWidth() * 0.1 * indexHand;//Pattern created into the fxml
+            handCoord[1] = HandPlayer1.getLayoutY() + 60;
         }
         return handCoord;
     }
@@ -175,14 +172,14 @@ public class Animation {
     {
         double[] kingdomCoord = new double[2];
         //Each case
-        if(playerTurn == 1)
+        if(playerTurn == 0)
         {
-            kingdomCoord[0] = KingdomPlayer1.getLayoutX()+36 + KingdomPlayer1.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
-            kingdomCoord[1] = KingdomPlayer1.getLayoutY()+50;
+            kingdomCoord[0] = KingdomPlayer0.getLayoutX()+36 + KingdomPlayer0.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoord[1] = KingdomPlayer0.getLayoutY()+50;
         }
-        if(playerTurn == 2) {
-            kingdomCoord[0] = KingdomPlayer2.getLayoutX() + 36 + KingdomPlayer2.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
-            kingdomCoord[1] = KingdomPlayer2.getLayoutY() + 50;
+        if(playerTurn == 1) {
+            kingdomCoord[0] = KingdomPlayer1.getLayoutX() + 36 + KingdomPlayer1.getWidth() * 0.1 * indexKingdom;//Pattern created into the fxml
+            kingdomCoord[1] = KingdomPlayer1.getLayoutY() + 50;
         }
         return kingdomCoord;
     }
@@ -210,7 +207,7 @@ public class Animation {
 
         for(int i = 0; i < Game.NB_CARD; i++)
         {
-            Scene s = KingdomPlayer1.getScene();
+            Scene s = KingdomPlayer0.getScene();
             Button b = (Button) s.lookup(name+i);
             b.getStyleClass().clear();
             DefaultCard d = new DefaultCard();

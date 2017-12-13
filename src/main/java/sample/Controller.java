@@ -35,16 +35,16 @@ public class Controller {
     ImageView AnimationView;
 
     @FXML
+    GridPane KingdomPlayer0;
+
+    @FXML
     GridPane KingdomPlayer1;
 
     @FXML
-    GridPane KingdomPlayer2;
+    GridPane HandPlayer0;
 
     @FXML
     GridPane HandPlayer1;
-
-    @FXML
-    GridPane HandPlayer2;
 
     @FXML
     Text textDeckCardLeft;
@@ -115,7 +115,7 @@ public class Controller {
     }*/
 
     public void DrawCard(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
-        Card card = game.playerList.get(player-1).getHand().DrawCard(game.deck, indexHand);
+        Card card = game.playerList.get(player).getHand().DrawCard(game.deck, indexHand);
         UpdateMessageDeckCardLeft();
         animation.AnimateDrawCard(player,indexHand, card, latch);
     }
@@ -261,7 +261,7 @@ public class Controller {
 
     /*Junit interface test method*/
     public void DrawCardWithoutAnimationInterface(int player, int indexHand) throws InterruptedException {
-        Card card = game.playerList.get(player-1).getHand().DrawCard(game.deck, indexHand);
+        Card card = game.playerList.get(player).getHand().DrawCard(game.deck, indexHand);
         animation.EndDrawCardAnimation(player,indexHand, card, null);
         UpdateMessageDeckCardLeft();
     }
@@ -279,6 +279,6 @@ public class Controller {
     @FXML
     public void initialize() {
         game = new Game();
-        animation = new Animation(AnimationView, KingdomPlayer1, KingdomPlayer2, HandPlayer1, HandPlayer2, blockAnimation);
+        animation = new Animation(AnimationView, KingdomPlayer0, KingdomPlayer1, HandPlayer0, HandPlayer1, blockAnimation);
     }
 }

@@ -41,8 +41,8 @@ public class ControllerTest extends ApplicationTest {
     public void handFilledInterface()
     {
         try {
+            controller.DrawMultipleCardWithoutAnimationInterface(0, 5);
             controller.DrawMultipleCardWithoutAnimationInterface(1, 5);
-            controller.DrawMultipleCardWithoutAnimationInterface(2, 5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -55,20 +55,20 @@ public class ControllerTest extends ApplicationTest {
         handFilledInterface();
         CountDownLatch latch = new CountDownLatch(1);
         Card card = Game.RandomCard();
-        controller.animation.AnimatePutCard(2,3, 3, card, latch);
+        controller.animation.AnimatePutCard(1,3, 3, card, latch);
         latch.await();
     }
 
     @Test
     public void DrawFirstCard() throws InterruptedException {
+        controller.DrawMultipleCard(0, 5);
         controller.DrawMultipleCard(1, 5);
-        controller.DrawMultipleCard(2, 5);
     }
 
     @Test
     public void ReverseField() throws InterruptedException {
+        controller.DrawMultipleCardWithoutAnimationInterface(0,5);
         controller.DrawMultipleCardWithoutAnimationInterface(1,5);
-        controller.DrawMultipleCardWithoutAnimationInterface(2,5);
         controller.PlayRandomTurnWithoutAnimation(20);
         Thread.sleep(100);
         CountDownLatch latch = new CountDownLatch(1);

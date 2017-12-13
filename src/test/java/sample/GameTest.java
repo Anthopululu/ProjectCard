@@ -29,13 +29,13 @@ public class GameTest {
 
     @Then("^Player 1 draw 5 card$")
     public void drawCardPlayer1() throws Exception {
-        game.DrawMultipleCard(1,5);
+        game.DrawMultipleCard(0,5);
         assertEquals(game.deck.size(), Game.NB_CARD_DECK-5);
     }
 
     @And("^Player 2 draw 5 card$")
     public void drawCardPlayer2() throws Exception {
-        game.DrawMultipleCard(2,5);
+        game.DrawMultipleCard(1,5);
         assertEquals(game.deck.size(), Game.NB_CARD_DECK-10);
     }
 
@@ -43,8 +43,8 @@ public class GameTest {
     @Given("^My game is started$")
     public void StartGame() throws Exception {
         this.game = new Game();
+        game.DrawMultipleCard(0,5);
         game.DrawMultipleCard(1,5);
-        game.DrawMultipleCard(2,5);
     }
 
     @Then("^Random play turn")
@@ -54,14 +54,14 @@ public class GameTest {
         int playerTurn = game.playerTurn;
 
         //List of empty index before
-        int emptyCardKingdom = ListCard.EmptyIndex(game.playerList.get(playerTurn-1).getKingdom().getKingdom()).size();
-        int emptyCardHand= ListCard.EmptyIndex(game.playerList.get(playerTurn-1).getHand().getListOfCards()).size();
+        int emptyCardKingdom = ListCard.EmptyIndex(game.playerList.get(playerTurn).getKingdom().getKingdom()).size();
+        int emptyCardHand= ListCard.EmptyIndex(game.playerList.get(playerTurn).getHand().getListOfCards()).size();
         //Play turn
         game.PlayTurnRandom();
 
         //List of empty index now
-        int emptyCardKingdom2 = ListCard.EmptyIndex(game.playerList.get(playerTurn-1).getKingdom().getKingdom()).size();
-        int emptyCardHand2 = ListCard.EmptyIndex(game.playerList.get(playerTurn-1).getHand().getListOfCards()).size();
+        int emptyCardKingdom2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getKingdom().getKingdom()).size();
+        int emptyCardHand2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getHand().getListOfCards()).size();
 
         //Test if true
         assertEquals(nb_card_deck-1, game.deck.size());
@@ -73,8 +73,8 @@ public class GameTest {
     @Given("^My game will reset kingdom$")
     public void MidGame() throws Exception {
         this.game = new Game();
+        game.DrawMultipleCard(0,5);
         game.DrawMultipleCard(1,5);
-        game.DrawMultipleCard(2,5);
         //Just before a reset kingdom
         game.PlayMultipleTurnRandom((Game.NB_CARD*2)-1);
         assertEquals(game.deck.size(), Game.NB_CARD_DECK - (Game.NB_CARD*2) - 9);
@@ -83,16 +83,7 @@ public class GameTest {
     @Then("^Play a turn and reset$")
     public void TurnToResetGame()
     {
-        int player = game.playerTurn;
-        if(player == 1)//Change to opponent
-        {
-            player = 2;
-        }
-        else
-        {
-            player = 1;
-        }
-        player--;
+        int player = Game.Opponent(game.playerTurn);
         //Number of empty card in kingdom for the first player
         int nbEmptyCardKingdom = ListCard.EmptyIndex(game.playerList.get(player).getCardKingdom()).size();
         assertEquals(nbEmptyCardKingdom, 0);//Should be empty of default card

@@ -49,28 +49,18 @@ public class Game {
         return result;
     }
 
-    public boolean IsCorrectCard(int player, int indexHand, int indexKingdom)
+    public static int Opponent(int player)
     {
-        //Check if we can put a card or not. Check if the card is not a default card on the hand (reverse) or if it one on the kingdom.
-        boolean result = true;
-
-        if(player == playerTurn)
+        int result;
+        if(player == 0)//Change to opponent
         {
-            //Check if the card is default or not
-            if(playerList.get(player-1).getHand().IsDefaultCard(indexHand))
-            {
-                result = false;
-            }
-            //Check if the card is default or not
-            if(!playerList.get(player-1).getKingdom().IsDefaultCard(indexKingdom))
-            {
-                result = false;
-            }
+            result = 1;
         }
         else
         {
-            result = false;
+            result = 0;
         }
+
         return result;
     }
 
@@ -82,33 +72,60 @@ public class Game {
         return deck;
     }
 
+    public boolean IsCorrectCard(int player, int indexHand, int indexKingdom)
+    {
+        //Check if we can put a card or not. Check if the card is not a default card on the hand (reverse) or if it one on the kingdom.
+        boolean result = true;
+
+        if(player == playerTurn)
+        {
+            //Check if the card is default or not
+            if(playerList.get(player).getHand().IsDefaultCard(indexHand))
+            {
+                result = false;
+            }
+            //Check if the card is default or not
+            if(!playerList.get(player).getKingdom().IsDefaultCard(indexKingdom))
+            {
+                result = false;
+            }
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
     public Card putCard(int player, int indexHand, int indexKingdom)
     {
-        return playerList.get(player-1).putCard(indexHand, indexKingdom);
+        return playerList.get(player).putCard(indexHand, indexKingdom);
     }
 
     public void putCardRandom(int player)
     {
-        int indexHand = ListCard.NextFillIndex(playerList.get(player-1).getCardHand());
-        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(player-1).getCardKingdom());
+        int indexHand = ListCard.NextFillIndex(playerList.get(player).getCardHand());
+        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(player).getCardKingdom());
         if(indexHand >= 0 & indexKingdom >= 0)
         {
-            putCard(player, indexHand,  indexKingdom);
+            Card card = putCard(player, indexHand,  indexKingdom);
+            int opponent = Opponent(player);
+            //card.power(playerList.get(player).getHand(), playerList.get(opponent).getHand(), deck, );
         }
     }
 
     public int NextCardHand()
     {
-        return ListCard.NextFillIndex(playerList.get(playerTurn-1).getCardHand());
+        return ListCard.NextFillIndex(playerList.get(playerTurn).getCardHand());
     }
 
     public int NextEmptyPlaceKingdom()
     {
-        return ListCard.NextEmptyIndex(playerList.get(playerTurn-1).getCardKingdom());
+        return ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardKingdom());
     }
 
     public void DrawCard(int player, int indexHand) throws InterruptedException {
-        playerList.get(player-1).DrawCard(deck, indexHand);
+        playerList.get(player).DrawCard(deck, indexHand);
     }
 
     public void DrawMultipleCard(int player, int nb) throws InterruptedException {
@@ -121,14 +138,7 @@ public class Game {
 
     public void ChangeTurnWithoutInterface()
     {
-        if(playerTurn == 1)
-        {
-            playerTurn = 2;
-        }
-        else
-        {
-            playerTurn = 1;
-        }
+        playerTurn = Opponent(playerTurn);
 
         if(ShouldDrawCard())
         {
@@ -161,21 +171,14 @@ public class Game {
 
     public void ChangeTurn()
     {
-        if(playerTurn == 1)
-        {
-            playerTurn = 2;
-        }
-        else
-        {
-            playerTurn = 1;
-        }
+        playerTurn = Opponent(playerTurn);
     }
 
     public boolean ShouldDrawCard()
     {
         boolean result = false;
         //First index free, starting from the middle to the edge of the platform
-        int indexHand = ListCard.NextEmptyIndex(playerList.get(playerTurn-1).getCardHand());
+        int indexHand = ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardHand());
 
         //Check if we have some place in the list card
         if(indexHand > -1)
@@ -192,13 +195,13 @@ public class Game {
 
     public int NextEmptyIndex()
     {
-        return ListCard.NextEmptyIndex(playerList.get(playerTurn-1).getCardHand());
+        return ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardHand());
     }
 
     public boolean ShouldResetKingdom()
     {
         boolean result = false;
-        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(playerTurn-1).getCardKingdom());
+        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardKingdom());
         //Clear kingdom if complete
         if(indexKingdom < 0)
         {
@@ -209,7 +212,7 @@ public class Game {
 
     public void ResetKingdom()
     {
-        playerList.get(playerTurn-1).ResetKingdom();
+        playerList.get(playerTurn).ResetKingdom();
     }
 
     @Override

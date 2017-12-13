@@ -17,6 +17,28 @@ public class Gnome extends Card{
         return 0;
     }
 
+    public void power(Player player, Player opponent, List<Card> deck)
+    {
+        try{
+            /**
+             * While there is enought card
+             * the player draw card from the deck until nbCardDraw is enough
+             */
+            if(deck.size()!=0)
+            {
+                int nbCardDraw = 0;
+                while(nbCardDraw < 2 || deck.size() < 1)
+                {
+                    player.getHand().drawCard(deck);
+                    nbCardDraw++;
+                }
+            }
+        }catch (Exception e)
+        {
+            System.out.print(e.getMessage());
+        }
+    }
+
     /***
      *
      * @param myHand
