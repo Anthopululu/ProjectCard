@@ -2,6 +2,7 @@ package sample;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Card {
 
@@ -88,9 +89,37 @@ public abstract class Card {
 
     //public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
 
+    public static Card RandomCard()
+    {
+        Card result = null;
+        Random rand = new Random();
+        int n = rand.nextInt(1);
+        if (n == 0) {
+            result = new Gnome();
+        }
+        if (n == 1) {
+            result = new Elf();
+        }
+        if (n == 2) {
+            result = new Dryad();
+        }
+        if (n == 3) {
+            result = new Goblin();
+        }
+        if (n == 4) {
+            result = new Troll();
+        }
+        if (n == 5) {
+            result = new Korrigan();
+        }
+        return result;
+    }
+
     public abstract int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard);
 
     public abstract int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront);
+
+    public abstract void power(Game game);
 
     public List<String> getClassString()
     {

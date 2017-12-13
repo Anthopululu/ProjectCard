@@ -54,7 +54,7 @@ public class ControllerTest extends ApplicationTest {
     public void AnimatePutCard() throws InterruptedException {
         handFilledInterface();
         CountDownLatch latch = new CountDownLatch(1);
-        Card card = Game.RandomCard();
+        Card card = Card.RandomCard();
         controller.animation.AnimatePutCard(1,3, 3, card, latch);
         latch.await();
     }

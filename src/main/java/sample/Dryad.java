@@ -14,6 +14,12 @@ public class Dryad extends Card {
     }
 
     @Override
+    public void power(Game game)
+    {
+
+    }
+
+    @Override
     public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
         try {
             myKingdom.add(YourCard);

@@ -17,25 +17,14 @@ public class Gnome extends Card{
         return 0;
     }
 
-    public void power(Player player, Player opponent, List<Card> deck)
+    @Override
+    public void power(Game game)
     {
-        try{
-            /**
-             * While there is enought card
-             * the player draw card from the deck until nbCardDraw is enough
-             */
-            if(deck.size()!=0)
-            {
-                int nbCardDraw = 0;
-                while(nbCardDraw < 2 || deck.size() < 1)
-                {
-                    player.getHand().drawCard(deck);
-                    nbCardDraw++;
-                }
-            }
-        }catch (Exception e)
-        {
-            System.out.print(e.getMessage());
+        try {
+            //Check into the method if we can draw card
+            game.DrawMultipleCard(game.playerTurn,2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

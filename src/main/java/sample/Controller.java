@@ -123,12 +123,25 @@ public class Controller {
     public void DrawMultipleCard(int player, int nb) throws InterruptedException {
         for(int i = 0; i < nb;i++)
         {
-            CountDownLatch latch = new CountDownLatch(1);
-            int indexHand = ListCard.FindIndex(i);
-            DrawCard(player,indexHand, latch);
-            //Wait the end of the animation
-            latch.await();
+            if(game.ShouldDrawCard()) {
+                CountDownLatch latch = new CountDownLatch(1);
+                int indexHand = ListCard.NextEmptyIndex(game.playerList.get(player).getCardHand());
+                DrawCard(player, indexHand, latch);
+                //Wait the end of the animation
+                latch.await();
+            }
+        }
+    }
 
+    public void Power(Card card, CountDownLatch latch) throws InterruptedException {
+        if(card.equals(new Gnome()))
+        {
+            DrawMultipleCard(game.playerTurn, 2);
+            latch.countDown();
+        }
+        else
+        {
+            latch.countDown();
         }
     }
 
@@ -140,8 +153,8 @@ public class Controller {
     public void PlayGame()
     {
         try {
+            DrawMultipleCard(0, 5);
             DrawMultipleCard(1, 5);
-            DrawMultipleCard(2, 5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -194,6 +207,7 @@ public class Controller {
     {
         animation.resetCard(true, player, indexHand);
         Card card = game.putCard(player, indexHand, indexKingdom);
+        card.power(game);
         animation.putCard(player, indexKingdom, card, null);
         //Do a draw card in
         game.ChangeTurn();
@@ -218,12 +232,14 @@ public class Controller {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                CountDownLatch latch2 = new CountDownLatch(1);
+                CountDownLatch latchPutCard = new CountDownLatch(1);
                 Card card = game.putCard(player, indexHand, indexKingdom);
-                animation.AnimatePutCard(player, indexHand, indexKingdom, card, latch2);
+                animation.AnimatePutCard(player, indexHand, indexKingdom, card, latchPutCard);
                 try {
                     //Wait the end of the animation
-                    latch2.await();
+                    latchPutCard.await();
+                    CountDownLatch latchPower = new CountDownLatch(1);
+                    Power(card, latchPower);
                     //Do a draw card in
                     game.ChangeTurn();
                     if(game.ShouldResetKingdom())
@@ -235,16 +251,17 @@ public class Controller {
                         try {
                             int indexHandNextEmpty = game.NextEmptyIndex();
                             DrawCard(game.playerTurn,indexHandNextEmpty, latch);
-                            //game.DrawCardWithoutInterface(game.playerTurn, indexHand);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                     else
                     {
-                        latch.countDown();
+                        if(latch != null)
+                        {
+                            latch.countDown();
+                        }
                     }
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

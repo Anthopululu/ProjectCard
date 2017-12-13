@@ -23,31 +23,7 @@ public class Game {
         playerTurn = 1;
     }
 
-    public static Card RandomCard()
-    {
-        Card result = null;
-        Random rand = new Random();
-        int n = rand.nextInt(6);
-        if (n == 0) {
-            result = new Dryad();
-        }
-        if (n == 1) {
-            result = new Elf();
-        }
-        if (n == 2) {
-            result = new Gnome();
-        }
-        if (n == 3) {
-            result = new Goblin();
-        }
-        if (n == 4) {
-            result = new Troll();
-        }
-        if (n == 5) {
-            result = new Korrigan();
-        }
-        return result;
-    }
+
 
     public static int Opponent(int player)
     {
@@ -67,7 +43,7 @@ public class Game {
     public List<Card> CreateDeck(){
         deck = new ArrayList<>();
         for (int i = 0; i < NB_CARD_DECK; i++) {
-            deck.add(RandomCard());
+            deck.add(Card.RandomCard());
         }
         return deck;
     }
@@ -102,16 +78,17 @@ public class Game {
         return playerList.get(player).putCard(indexHand, indexKingdom);
     }
 
-    public void putCardRandom(int player)
+    public Card putCardRandom(int player)
     {
         int indexHand = ListCard.NextFillIndex(playerList.get(player).getCardHand());
         int indexKingdom = ListCard.NextEmptyIndex(playerList.get(player).getCardKingdom());
+        Card card = null;
         if(indexHand >= 0 & indexKingdom >= 0)
         {
-            Card card = putCard(player, indexHand,  indexKingdom);
+            card = putCard(player, indexHand,  indexKingdom);
             int opponent = Opponent(player);
-            //card.power(playerList.get(player).getHand(), playerList.get(opponent).getHand(), deck, );
         }
+        return card;
     }
 
     public int NextCardHand()
@@ -131,8 +108,11 @@ public class Game {
     public void DrawMultipleCard(int player, int nb) throws InterruptedException {
         for(int i = 0; i < nb;i++)
         {
-            int indexHand = ListCard.FindIndex(i);
-            DrawCard(player,indexHand);
+            if(ShouldDrawCard())
+            {
+                int indexHand = ListCard.FindIndex(i);
+                DrawCard(player,indexHand);
+            }
         }
     }
 
@@ -157,7 +137,11 @@ public class Game {
 
     public void PlayTurnRandom()
     {
-        putCardRandom(playerTurn);
+        Card card = putCardRandom(playerTurn);
+        if(card != null)
+        {
+            card.power(this);
+        }
         ChangeTurnWithoutInterface();
     }
 

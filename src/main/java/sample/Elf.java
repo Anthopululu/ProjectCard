@@ -14,6 +14,12 @@ public class Elf extends  Card {
         return 0;
     }
 
+    @Override
+    public void power(Game game)
+    {
+
+    }
+
     public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
         return 0;
     }
