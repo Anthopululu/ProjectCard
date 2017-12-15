@@ -23,7 +23,7 @@ public class Hand {
 
     public Hand()
     {
-        listOfCards = ListCard.InitialiseListCard(10);
+        listOfCards = ListCard.InitialiseListCard(Game.NB_CARD);
     }
 
     public List getHand() {

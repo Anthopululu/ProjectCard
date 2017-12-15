@@ -153,6 +153,21 @@ public class Game {
         }
     }
 
+    public boolean IsTheEnd()
+    {
+        boolean result = false;
+        if(deck.size() <1)
+        {
+            int emptyIndexHand0 = ListCard.NextEmptyIndex(playerList.get(0).getCardHand());
+            int emptyIndexHand1 = ListCard.NextEmptyIndex(playerList.get(1).getCardHand());
+            if(emptyIndexHand0 < 1 & emptyIndexHand1 < 1)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     public void ChangeTurn()
     {
         playerTurn = Opponent(playerTurn);

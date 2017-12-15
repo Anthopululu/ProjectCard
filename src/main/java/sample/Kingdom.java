@@ -20,7 +20,7 @@ public class Kingdom {
 
     public void ResetKingdom()
     {
-        this.kingdom = ListCard.InitialiseListCard(10);
+        this.kingdom = ListCard.InitialiseListCard(Game.NB_CARD);
     }
 
     public List<Card> getKingdom() {
