@@ -1,5 +1,7 @@
 package sample;
 
+import jdk.nashorn.internal.runtime.ECMAException;
+
 import java.util.List;
 
 public class Dryad extends Card {
@@ -13,28 +15,29 @@ public class Dryad extends Card {
         return 0;
     }
 
+    /***
+     * stole a card in front of your opponent and add it in front of you without activating its power.
+     * @param game
+     */
     @Override
     public void power(Game game)
     {
+        try{
+            //The current player
+            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            Player advPlayer = game.playerList.get(2 - game.playerTurn);
+                if(advPlayer.kingdom.size() > 0)
+                {
+                    currentPlayer.kingdom.addCard(advPlayer.kingdom.selectedCard(0));
+                    // Should add a index instance of the advPlayer.kingdom.size() - 1
+                    advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1 );
+                }
 
-    }
-
-    @Override
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        try {
-            myKingdom.add(YourCard);
-            YourKingdom.add(MyCard);
-            myKingdom.remove(MyCard);
-            YourKingdom.remove(YourCard);
-
-        } catch (Exception e) {
-            System.out.print(e.getMessage());
         }
-        return 0;
-    }
-
-    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
-        return 0;
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
 

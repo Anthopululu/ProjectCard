@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
+
     static int NB_CARD = 10;//Number of card in the hand and in the kingdom
     static int NB_CARD_DECK = 45;//Number of card in the deck
     List<Player> playerList;//playerList.get(0) = Player 1, playerList.get(1) = Player 2
@@ -22,8 +23,6 @@ public class Game {
         playerList = Arrays.asList(new Player(0), new Player(1));
         playerTurn = 1;
     }
-
-
 
     public static int Opponent(int player)
     {

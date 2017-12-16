@@ -1,4 +1,6 @@
 package sample;
+import jdk.nashorn.internal.runtime.ECMAException;
+
 import java.util.List;
 import java.util.Random;
 
@@ -14,65 +16,41 @@ public class Korrigan extends Card  {
         return 0;
     }
 
+    /***
+     * Korrigan cards draw 2 random cards within your opponent hand
+     * @param game
+     */
     @Override
     public void power(Game game)
     {
-
-    }
-
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        return 0;
-    }
-
-    /***
-     *Korrigan cards draw 2 random cards within your opponent hand
-     */
-    @Override
-    public int power(Hand myHand, Hand advHand,List<Card> deck, Card inFront, Card advFront) {
-        Random rand = new Random();
-        /*
-        If the oppenent has enough card, draw 2 random cards from his hand,
-        if he only has 1 card, takes it
-        if he doesn't has card return nothing
-        */
-        if(advHand.size() > 1 )
+        try
         {
-            try{
-                int card1 = rand.nextInt(advHand.size());
-                int card2 = rand.nextInt(advHand.size());
-                while(card1 != card2)
-                {
-                    card2 = rand.nextInt(advHand.size());
+            //The current player
+            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            // The oppenent
+            Player advPlayer = game.playerList.get(2 - game.playerTurn);
+            Random rand = new Random();
+
+            if(advPlayer.hand.size() > 1 ) {
+                int index1 = rand.nextInt(advPlayer.hand.size());
+                int index2 = rand.nextInt(advPlayer.hand.size());
+                while (index1 != index2) {
+                    index2 = rand.nextInt(advPlayer.hand.size());
                 }
-                Card tmp = new Korrigan();
-                tmp = advHand.get(card1);
-                myHand.add(tmp);
-                advHand.delete(tmp);
-                tmp = advHand.get(card2);
-                myHand.add(tmp);
-                advHand.delete(tmp);
-                return 1;
+
+                Card tmp;
+                tmp = advPlayer.hand.get(index1);
+                currentPlayer.hand.add(tmp);
+                advPlayer.hand.deleteIndex(index1);
+                tmp = advPlayer.hand.get(index2);
+                currentPlayer.hand.add(tmp);
+                advPlayer.hand.deleteIndex(index2);
             }
-            catch (Exception e)
-            {
-                System.out.print(e.getMessage());
-            }
-        }else if(advHand.size() == 1)
+        }catch (Exception e)
         {
-            try{
-                int cards = rand.nextInt(advHand.size());
-                myHand.add(advHand.get(0));
-                advHand.deleteIndex(0);
-                return 1;
-            }catch (Exception e)
-            {
-                System.out.print(e.getMessage());
-            }
+            System.out.println(e.getMessage());
         }
-        else {
-            System.out.print("Connard, tu n'as pas de carte");
-        }
-        return 0;
+
     }
 
 }

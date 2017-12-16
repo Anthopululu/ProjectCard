@@ -59,6 +59,20 @@ public class Player {
         return kingdom.PutCard(hand, indexHand,  indexKingdom);
     }
 
+    public void useThePowerOfTheNewCardPutDowOnTheKingdom(Game game)
+    {
+        try
+        {
+            if(kingdom.size() != 0)
+            {
+               kingdom.selectedCard(0).power(game);
+            }
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
     @Override
     public String toString() {
         return "Kingdom=" + kingdom +

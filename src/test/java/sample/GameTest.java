@@ -63,7 +63,7 @@ public class GameTest {
         int emptyCardKingdom2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getKingdom().getKingdom()).size();
         int emptyCardHand2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getHand().getListOfCards()).size();
 
-        //Test if true
+        //test if true
         assertTrue(nb_card_deck > game.deck.size());
     }
 

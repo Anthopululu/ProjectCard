@@ -1,5 +1,6 @@
 package sample;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Goblin extends Card{
 
@@ -14,47 +15,27 @@ public class Goblin extends Card{
         return 0;
     }
 
+    /***
+     * switch your hand with you opponent
+     * @param game
+     */
     @Override
     public void power(Game game)
     {
+           try{
+               //The current player
+               Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+               // The oppenent
+               Player advPlayer = game.playerList.get(2 - game.playerTurn);
 
+               Hand tmpHand = currentPlayer.getHand();
+               currentPlayer.hand = advPlayer.hand;
+               advPlayer.hand = tmpHand;
+           }catch (Exception e)
+           {
+               System.out.println(e.getMessage());
+           }
     }
 
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        return 0;
-    }
-
-    /***
-     *
-     * @param myHand
-     * @param advHand
-     * @param deck
-     * @param inFront
-     * @param advFront
-     * @return
-     *
-     * switch your hand with you opponent
-     */
-    @Override
-    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
-
-        /*
-        Create a tmp element
-        Stock you hand on tmp
-        take the card of your adv
-        adv get the card on tmp
-         */
-        try {
-            Hand tmp = myHand;
-            myHand = advHand;
-            advHand = tmp;
-        }
-        catch (Exception e)
-        {
-            System.out.print(e.getMessage());
-        }
-        return 0;
-
-    }
 
 }

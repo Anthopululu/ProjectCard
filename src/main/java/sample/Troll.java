@@ -13,38 +13,29 @@ public class Troll extends Card {
         return 0;
     }
 
+    /***
+     * swap the cards in front of you with the cards in front of your opponent
+     * @param game
+     */
     @Override
     public void power(Game game)
     {
+        try {
+            //The current player
+            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            // The oppenent
+            Player advPlayer = game.playerList.get(2 - game.playerTurn);
 
-    }
+            Card tmp = currentPlayer.kingdom.newestCardOnTheKingdom();
+            currentPlayer.kingdom.removeCard(currentPlayer.kingdom.size() - 1);
+            currentPlayer.kingdom.addCard(advPlayer.kingdom.newestCardOnTheKingdom());
+            advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1);
+            advPlayer.kingdom.addCard(tmp);
 
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        return 0;
-    }
-
-    /***
-     *
-     * @param myHand
-     * @param advHand
-     * @param deck
-     * @param inFront
-     * @param advFront
-     * @return
-     */
-    @Override
-    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
-
-        try{
-            Hand tmp;
-            tmp = advHand;
-            advHand = myHand;
-            myHand = tmp;
         }catch (Exception e)
         {
-            System.out.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
-
-        return 0;
     }
+
 }

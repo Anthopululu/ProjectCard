@@ -13,10 +13,10 @@ public class Gnome extends Card{
         return 0;
     }
 
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        return 0;
-    }
-
+    /***
+     * draw 2 cards
+     * @param game
+     */
     @Override
     public void power(Game game)
     {
@@ -28,38 +28,4 @@ public class Gnome extends Card{
         }
     }
 
-    /***
-     *
-     * @param myHand
-     * @param advHand
-     * @param deck
-     * @param inFront
-     * @param advFront
-     * @return int
-     *
-     * draw 2 cards
-     */
-    @Override
-    public int power(Hand myHand, Hand advHand,List<Card> deck, Card inFront, Card advFront) {
-        try{
-            /**
-             * While there is enought card
-             * the player draw card from the deck until nbCardDrawis enought
-             */
-            if(deck.size()!=0)
-            {
-                int nbCardDraw = 0;
-                while(nbCardDraw < 2 || deck.size() < 1 )
-                {
-                    myHand.drawCard(deck);
-                    nbCardDraw++;
-                }
-            }
-        }catch (Exception e)
-        {
-            System.out.print(e.getMessage());
-        }
-        return 0;
-    }
-    
 }

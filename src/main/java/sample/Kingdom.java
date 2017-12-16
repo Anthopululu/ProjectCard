@@ -18,13 +18,13 @@ public class Kingdom {
         this.kingdom = kingdom;
     }
 
+    public List<Card> getKingdom() {
+        return this.kingdom;
+    }
+
     public void ResetKingdom()
     {
         this.kingdom = ListCard.InitialiseListCard(Game.NB_CARD);
-    }
-
-    public List<Card> getKingdom() {
-        return this.kingdom;
     }
 
     public void setKingdom(List<Card> kingdom) {
@@ -80,6 +80,23 @@ public class Kingdom {
     public Card get(int index) {
         return kingdom.get(index);
     }
+
+    // The methode give return the last card on the kingdom
+    // Should change when i  understand the code
+    public Card selectedCard(int index)
+    {
+        if(kingdom.size() != 0)
+        {
+            return kingdom.get(kingdom.size() - 1);
+        }return  null;
+    }
+
+    public Card newestCardOnTheKingdom()
+    {
+        return kingdom.get(kingdom.size() - 1);
+    }
+
+
 
     @Override
     public String toString() {
