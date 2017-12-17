@@ -77,10 +77,8 @@ public class Game {
         return playerList.get(player).putCard(indexHand, indexKingdom);
     }
 
-    public Card putCardRandom(int player)
+    public Card putCardRandom(int player,int indexHand,int indexKingdom)
     {
-        int indexHand = ListCard.NextFillIndex(playerList.get(player).getCardHand());
-        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(player).getCardKingdom());
         Card card = null;
         if(indexHand >= 0 & indexKingdom >= 0)
         {
@@ -136,10 +134,13 @@ public class Game {
 
     public void PlayTurnRandom()
     {
-        Card card = putCardRandom(playerTurn);
+        int indexHand = ListCard.NextFillIndex(playerList.get(playerTurn).getCardHand());
+        int indexKingdom = ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardKingdom());
+
+        Card card = putCardRandom(playerTurn,indexHand,indexKingdom);
         if(card != null)
         {
-            card.power(this);
+            card.power(this,indexKingdom);
         }
         ChangeTurnWithoutInterface();
     }

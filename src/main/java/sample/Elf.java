@@ -14,6 +14,7 @@ public class Elf extends  Card {
         return 0;
     }
 
+
     /***
      * Elf : copy and use the power of one of the card in front of you
      * @param game

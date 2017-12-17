@@ -208,7 +208,7 @@ public class Controller {
     {
         animation.resetCard(true, player, indexHand);
         Card card = game.putCard(player, indexHand, indexKingdom);
-        card.power(game);
+        card.power(game,indexHand);
         animation.putCard(player, indexKingdom, card, null);
         //Do a draw card in
         game.ChangeTurn();
