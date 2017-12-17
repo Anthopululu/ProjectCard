@@ -36,7 +36,7 @@ public abstract class ListCard {
         for(int i = 0; i < list.size();i++)
         {
             int index = SequenceNumberMiddle10(i);
-            if(list.get(index).equals(Card.DEFAULT_CARD))
+            if(list.get(index) instanceof  DefaultCard)
             {
                 result.add(index);
             }
@@ -63,7 +63,7 @@ public abstract class ListCard {
         for(int i = 0; i < list.size();i++)
         {
             int index = SequenceNumberMiddle10(i);
-            if(!list.get(index).equals(Card.DEFAULT_CARD))
+            if(!(list.get(index) instanceof DefaultCard))
             {
                 result.add(index);
             }
