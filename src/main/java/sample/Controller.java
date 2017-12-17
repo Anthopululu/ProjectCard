@@ -92,28 +92,6 @@ public class Controller {
         }
     }
 
-    /*Hard check
-    //Check if it is a correct card or only the reverse default card
-    public boolean IsCorrectCardType(int playerTurn, int indexHand, int indexKingdom)
-    {
-        boolean result = false;
-        Scene s = AnimationView.getScene();
-
-        //Get the image
-        Button handCard = (Button) s.lookup("#HandPlayer"+playerTurn+"_Card" + indexHand);
-        Button kingdomCard = (Button) s.lookup("#KingdomPlayer"+playerTurn+"_Card" + indexKingdom);
-
-        //Check their style class to know if it's a reverse or not
-        if(!handCard.getStyleClass().contains("Reverse"))
-        {
-            if(kingdomCard.getStyleClass().contains("Reverse"))
-            {
-                result = true;
-            }
-        }
-        return result;
-    }*/
-
     public void DrawCard(int player, int indexHand, CountDownLatch latch) throws InterruptedException {
         Card card = game.playerList.get(player).getHand().DrawCard(game.deck, indexHand);
         UpdateMessageDeckCardLeft();
@@ -133,11 +111,59 @@ public class Controller {
         }
     }
 
-    public void Power(Card card, CountDownLatch latch) throws InterruptedException {
+    public void Power(Card card, int indexKingdom, CountDownLatch latch) throws InterruptedException {
+        //Draw 2 cards
         if(card.equals(new Gnome()))
         {
             DrawMultipleCard(game.playerTurn, 2);
             latch.countDown();
+        }
+        //draw 2 random cards within your opponent hand
+        else if (card.equals(new Korrigan()))
+        {
+            //latch.countDown();
+            CountDownLatch latchFirstDraw = new CountDownLatch(1);
+            animation.DrawCardOpponent(game.playerTurn, game.playerList.get(Game.Opponent(game.playerTurn)).hand, latchFirstDraw);
+            latchFirstDraw.await();
+            animation.DrawCardOpponent(game.playerTurn, game.playerList.get(Game.Opponent(game.playerTurn)).hand, latch);
+        }
+        //switch your hand with you opponent
+        else if(card.equals(new Goblin()))
+        {
+            int opponent = Game.Opponent(game.playerTurn);
+            List<Card> playerCardHand = game.playerList.get(game.playerTurn).getCardHand();
+            List<Card> opponentCardHand = game.playerList.get(opponent).getCardHand();
+            animation.AnimateSwitchHand(game.playerTurn, opponent, playerCardHand, opponentCardHand, latch);
+        }
+        //copy and use the power of one of the card in front of you
+        else if(card.equals(new Elf()))
+        {
+            int opponentTurn = Game.Opponent(game.playerTurn);
+            Card advCard = game.playerList.get(opponentTurn).getCardKingdom().get(indexKingdom);
+            if(advCard != new Elf() & advCard != new DefaultCard())
+            {
+                Power(advCard, indexKingdom,latch);
+            }
+            else
+            {
+                latch.countDown();
+            }
+        }
+        //stole a card in front of your opponent and add it in front of you without activating its power.
+        else if(card.equals(new Dryad()))
+        {
+            int opponentTurn = Game.Opponent(game.playerTurn);
+            Kingdom kingdomPlayer = game.playerList.get(game.playerTurn).kingdom;
+            Kingdom kingdomOpponent = game.playerList.get(opponentTurn).kingdom;
+            animation.PutCardOpponent(game.playerTurn, kingdomPlayer, kingdomOpponent, latch);
+        }
+        //swap the cards in front of you with the cards in front of your opponent
+        else if(card.equals(new Troll()))
+        {
+            int opponent = Game.Opponent(game.playerTurn);
+            List<Card> playerCardKingdom = game.playerList.get(game.playerTurn).getCardKingdom();
+            List<Card> opponentCardKingdom = game.playerList.get(opponent).getCardKingdom();
+            animation.AnimateSwitchKingdom(game.playerTurn, opponent, playerCardKingdom, opponentCardKingdom, latch);
         }
         else
         {
@@ -207,8 +233,8 @@ public class Controller {
     {
         animation.resetCard(true, player, indexHand);
         Card card = game.putCard(player, indexHand, indexKingdom);
-        card.power(game);
-        animation.putCard(player, indexKingdom, card, null);
+        //card.power(game);
+        animation.SetCard(false, player, indexKingdom, card, null);
         //Do a draw card in
         game.ChangeTurn();
         if(game.ShouldDrawCard())
@@ -239,7 +265,8 @@ public class Controller {
                     //Wait the end of the animation
                     latchPutCard.await();
                     CountDownLatch latchPower = new CountDownLatch(1);
-                    Power(card, latchPower);
+                    Power(card, indexKingdom, latchPower);
+                    latchPower.await();
                     //Do a draw card in
                     game.ChangeTurn();
                     if(game.ShouldResetKingdom())
@@ -279,7 +306,7 @@ public class Controller {
     /*Junit interface test method*/
     public void DrawCardWithoutAnimationInterface(int player, int indexHand) throws InterruptedException {
         Card card = game.playerList.get(player).getHand().DrawCard(game.deck, indexHand);
-        animation.EndDrawCardAnimation(player,indexHand, card, null);
+        animation.SetCard(true, player,indexHand, card, null);
         UpdateMessageDeckCardLeft();
     }
 
