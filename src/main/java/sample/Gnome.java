@@ -18,7 +18,7 @@ public class Gnome extends Card{
      * @param game
      */
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
         try {
             //Check into the method if we can draw card

@@ -18,7 +18,7 @@ public class Troll extends Card {
      * @param game
      */
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
         try {
             //The current player
@@ -26,11 +26,14 @@ public class Troll extends Card {
             // The oppenent
             Player advPlayer = game.playerList.get(2 - game.playerTurn);
 
-            Card tmp = currentPlayer.kingdom.newestCardOnTheKingdom();
-            currentPlayer.kingdom.removeCard(currentPlayer.kingdom.size() - 1);
-            currentPlayer.kingdom.addCard(advPlayer.kingdom.newestCardOnTheKingdom());
-            advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1);
-            advPlayer.kingdom.addCard(tmp);
+            if(advPlayer.kingdom.selectedCard(index) != null)
+            {
+                Card tmp = currentPlayer.kingdom.newestCardOnTheKingdom();
+                currentPlayer.kingdom.removeCard(currentPlayer.kingdom.size() - 1);
+                currentPlayer.kingdom.addCard(advPlayer.kingdom.newestCardOnTheKingdom());
+                advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1);
+                advPlayer.kingdom.addCard(tmp);
+            }
 
         }catch (Exception e)
         {

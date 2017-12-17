@@ -115,7 +115,7 @@ public abstract class Card {
         return result;
     }
 
-    public abstract void power(Game game);
+    public abstract void power(Game game,int index);
 
     public List<String> getClassString()
     {

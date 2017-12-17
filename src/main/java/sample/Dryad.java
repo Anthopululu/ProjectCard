@@ -20,19 +20,22 @@ public class Dryad extends Card {
      * @param game
      */
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
         try{
             //The current player
             Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            //oppenent
             Player advPlayer = game.playerList.get(2 - game.playerTurn);
-                if(advPlayer.kingdom.size() > 0)
-                {
-                    currentPlayer.kingdom.addCard(advPlayer.kingdom.selectedCard(0));
-                    // Should add a index instance of the advPlayer.kingdom.size() - 1
-                    advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1 );
-                }
 
+            if(advPlayer.kingdom.selectedCard(index) != null )
+            {
+                if(currentPlayer.kingdom.isFull())
+                    currentPlayer.kingdom.ResetKingdom();
+
+                currentPlayer.kingdom.addCard(advPlayer.kingdom.selectedCard(index));
+                advPlayer.kingdom.removeCard(index );
+            }
         }
         catch (Exception e)
         {

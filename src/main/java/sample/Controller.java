@@ -202,7 +202,8 @@ public class Controller {
         }
     }
 
-
+    // Qui sert  a rien
+    // Index de la carte
     public void PlayTurnWithoutAnimation(int player, int indexHand, int indexKingdom)
     {
         animation.resetCard(true, player, indexHand);
@@ -227,6 +228,7 @@ public class Controller {
         }
     }
 
+    // Index de la carte
     public void PlayTurn(int player, int indexHand, int indexKingdom, CountDownLatch latch)
     {
         Thread t = new Thread(new Runnable() {

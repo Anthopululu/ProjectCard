@@ -15,17 +15,8 @@ public class DefaultCard extends Card{
     }
 
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
 
-    }
-
-    public int power(List<Card> myKingdom, List<Card> YourKingdom, Card MyCard, Card YourCard) {
-        return 0;
-    }
-
-    @Override
-    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
-        return -1;
     }
 }

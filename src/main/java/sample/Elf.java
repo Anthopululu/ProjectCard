@@ -19,7 +19,7 @@ public class Elf extends  Card {
      * @param game
      */
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
 
         try{
@@ -27,9 +27,9 @@ public class Elf extends  Card {
             Player currentPlayer = game.playerList.get(game.playerTurn - 1);
             // The oppenent
             Player advPlayer = game.playerList.get(2 - game.playerTurn);
-            if(advPlayer.kingdom.size() != 0 && !(advPlayer.kingdom.selectedCard(0) instanceof Elf))
+            if(advPlayer.kingdom.selectedCard(index) != null && !(advPlayer.kingdom.selectedCard(0) instanceof Elf))
             {
-                advPlayer.useThePowerOfTheNewCardPutDowOnTheKingdom(game);
+                advPlayer.useThePowerOfTheNewCardPutDowOnTheKingdom(game,index);
             }
         }
         catch (Exception e)

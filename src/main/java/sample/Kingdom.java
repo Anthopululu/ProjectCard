@@ -96,7 +96,27 @@ public class Kingdom {
         return kingdom.get(kingdom.size() - 1);
     }
 
+    public boolean isEmpty()
+    {
+        boolean isEmpty = true;
+        for (int i = 0; i < kingdom.size();i++)
+        {
+            if(kingdom.get(i) != null)
+                isEmpty = false;
+        }
+        return isEmpty;
+    }
 
+    public boolean isFull()
+    {
+        boolean isFull = true;
+        for (int i = 0; i < kingdom.size();i++)
+        {
+            if(kingdom.get(i) == null)
+                isFull = false;
+        }
+        return isFull;
+    }
 
     @Override
     public String toString() {

@@ -119,13 +119,6 @@ public class Hand {
         return listOfCards.size();
     }
 
-    public boolean isEmpty()
-    {
-        if(listOfCards.isEmpty())
-            return true;
-        else return false;
-    }
-
     public Card set(int indexHand, Card card)
     {
         return listOfCards.set(indexHand, card);
@@ -152,6 +145,28 @@ public class Hand {
 
     public Card get(int index) {
         return listOfCards.get(index);
+    }
+
+    public boolean isEmpty()
+    {
+        boolean isEmpty = true;
+        for (int i = 0; i < listOfCards.size();i++)
+        {
+            if(listOfCards.get(i) != null)
+                isEmpty = false;
+        }
+        return isEmpty;
+    }
+
+    public boolean isFull()
+    {
+        boolean isFull = true;
+        for (int i = 0; i < listOfCards.size();i++)
+        {
+            if(listOfCards.get(i) == null)
+                isFull = false;
+        }
+        return isFull;
     }
 
     @Override

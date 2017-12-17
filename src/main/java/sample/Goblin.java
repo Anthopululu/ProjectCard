@@ -20,7 +20,7 @@ public class Goblin extends Card{
      * @param game
      */
     @Override
-    public void power(Game game)
+    public void power(Game game,int index)
     {
            try{
                //The current player

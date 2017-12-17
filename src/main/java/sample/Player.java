@@ -59,13 +59,13 @@ public class Player {
         return kingdom.PutCard(hand, indexHand,  indexKingdom);
     }
 
-    public void useThePowerOfTheNewCardPutDowOnTheKingdom(Game game)
+    public void useThePowerOfTheNewCardPutDowOnTheKingdom(Game game,int index)
     {
         try
         {
             if(kingdom.size() != 0)
             {
-               kingdom.selectedCard(0).power(game);
+               kingdom.selectedCard(0).power(game,index);
             }
         }catch (Exception e)
         {
