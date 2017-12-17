@@ -7,53 +7,14 @@ import java.util.Random;
 public abstract class Card {
 
     String name;
-    boolean isHand;
-    boolean isKingdom;
-    static DefaultCard DEFAULT_CARD = new DefaultCard();//The default card
-    boolean isDeck;
 
     public Card()//To have an heritage
     {
-        isDeck = true;
-        isHand = false;
-        isKingdom = false;
     }
 
     public Card(String name)
     {
         this.name = name;
-        isDeck = true;
-        isHand = false;
-        isKingdom = false;
-    }
-
-    public boolean IsDeck()
-    {
-        return isDeck;
-    }
-
-    public boolean IsKingdom()
-    {
-        return isKingdom;
-    }
-
-    public boolean IsHand()
-    {
-        return isHand;
-    }
-
-    public void toKingdom()
-    {
-        isDeck = false;
-        isHand = false;
-        isKingdom = true;
-    }
-
-    public void toHand()
-    {
-        isDeck = false;
-        isHand = true;
-        isKingdom = false;
     }
 
     @Override
@@ -93,15 +54,15 @@ public abstract class Card {
     {
         Card result = null;
         Random rand = new Random();
-        int n = rand.nextInt(1);
+        int n = rand.nextInt(6);
         if (n == 0) {
-            result = new Gnome();
+            result = new Dryad();
         }
         if (n == 1) {
             result = new Elf();
         }
         if (n == 2) {
-            result = new Dryad();
+            result = new Gnome();
         }
         if (n == 3) {
             result = new Goblin();

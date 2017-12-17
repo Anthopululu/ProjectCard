@@ -26,7 +26,7 @@ public class Hand {
         listOfCards = ListCard.InitialiseListCard(Game.NB_CARD);
     }
 
-    public List getHand() {
+    public List<Card> getHand() {
         return listOfCards;
     }
 
@@ -41,9 +41,6 @@ public class Hand {
         {
             //Remove it from the deck
             card = deck.remove(deck.size()-1);
-            //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
-            //Not use yet
-            card.toHand();
             //Add it in the hand
             listOfCards.set(indexHand, card);
         }
@@ -52,7 +49,7 @@ public class Hand {
 
     public boolean IsDefaultCard(int indexHand)
     {
-        return listOfCards.get(indexHand).equals(Card.DEFAULT_CARD);
+        return listOfCards.get(indexHand) instanceof DefaultCard;
     }
 
     /***

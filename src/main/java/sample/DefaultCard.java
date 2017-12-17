@@ -24,8 +24,4 @@ public class DefaultCard extends Card{
         return 0;
     }
 
-    @Override
-    public int power(Hand myHand, Hand advHand, List<Card> deck, Card inFront, Card advFront) {
-        return -1;
-    }
 }

@@ -42,7 +42,7 @@ public class Kingdom {
 
     public boolean IsDefaultCard(int indexKingdom)
     {
-        return kingdom.get(indexKingdom).equals(Card.DEFAULT_CARD);
+        return kingdom.get(indexKingdom) instanceof DefaultCard;
     }
 
     public int size()
@@ -56,9 +56,6 @@ public class Kingdom {
         //Replace it by a default card
         Card card = hand.set(indexHand, new DefaultCard());
         Card card2 = kingdom.set(indexKingdom, card);
-        //Let us know if the card is on the hand, kingdom or deck with boolean and getter associated.
-        //Not use yet
-        card2.toKingdom();
         return card;
     }
 

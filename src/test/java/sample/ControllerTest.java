@@ -66,14 +66,21 @@ public class ControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void ReverseField() throws InterruptedException {
+    public void EndGameDraw() throws InterruptedException {
         controller.DrawMultipleCardWithoutAnimationInterface(0,5);
         controller.DrawMultipleCardWithoutAnimationInterface(1,5);
-        controller.PlayRandomTurnWithoutAnimation(20);
-        Thread.sleep(100);
-        CountDownLatch latch = new CountDownLatch(1);
-        controller.PlayRandomTurn(1, latch);
-        latch.await();
+        controller.game.endGame = true;
+        controller.CheckEndGameMessage();
+        Thread.sleep(500);
     }
 
+    @Test
+    public void EndGameWin() throws InterruptedException {
+        controller.DrawMultipleCardWithoutAnimationInterface(0,5);
+        controller.DrawMultipleCardWithoutAnimationInterface(1,5);
+        controller.game.playerList.get(1).kingdom.getKingdom().set(0, new Gnome());
+        controller.game.endGame = true;
+        controller.CheckEndGameMessage();
+        Thread.sleep(500);
+    }
 }

@@ -23,7 +23,7 @@ public class Troll extends Card {
         try {
             //The current player
             Player currentPlayer = game.playerList.get(game.playerTurn - 1);
-            // The oppenent
+            // The opponent
             Player advPlayer = game.playerList.get(2 - game.playerTurn);
 
             Card tmp = currentPlayer.kingdom.newestCardOnTheKingdom();
