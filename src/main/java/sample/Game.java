@@ -178,15 +178,18 @@ public class Game {
         playerList.get(player).DrawCard(deck, indexHand);
     }
 
-    public void DrawMultipleCard(int player, int nb) throws InterruptedException {
+    public List<Integer> DrawMultipleCard(int player, int nb) throws InterruptedException {
+        List<Integer> l = new ArrayList<>();
         for(int i = 0; i < nb;i++)
         {
             if(ShouldDrawCard())
             {
-                int indexHand = ListCard.FindIndex(i);
+                int indexHand = ListCard.NextEmptyIndex(playerList.get(playerTurn).getCardHand());
+                l.add(indexHand);
                 DrawCard(player,indexHand);
             }
         }
+        return l;
     }
 
     public void ChangeTurnWithoutInterface()

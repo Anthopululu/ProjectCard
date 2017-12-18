@@ -15,8 +15,8 @@ public class DefaultCard extends Card{
     }
 
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
-
+        return null;
     }
 }

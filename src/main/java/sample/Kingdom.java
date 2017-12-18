@@ -78,13 +78,11 @@ public class Kingdom {
         return kingdom.get(index);
     }
 
-    // The methode give return the last card on the kingdom
-    // Should change when i  understand the code
     public Card selectedCard(int index)
     {
         if(kingdom.size() != 0)
         {
-            return kingdom.get(kingdom.size() - 1);
+            return kingdom.get(index);
         }return  null;
     }
 

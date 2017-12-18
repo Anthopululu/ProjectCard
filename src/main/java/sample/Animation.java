@@ -193,16 +193,12 @@ public class Animation {
         return kingdomCoord;
     }
 
-    public void DrawCardOpponent(int playerTurn, Hand handOpponent, CountDownLatch latch)
+    public void DrawCardOpponent(int playerTurn, Hand handOpponent, int indexHandOpponent, int indexHandPlayer, Card card,  CountDownLatch latch)
     {
         //PlayerTurn = the player which have put the card
         int opponentTurn = Game.Opponent(playerTurn);
-        int indexHandOpponent = ListCard.NextFillIndex(handOpponent.getHand());
-        int indexHandPlayer = ListCard.NextEmptyIndex(handOpponent.getHand());
         if(indexHandOpponent >= 0 & indexHandPlayer >= 0)
         {
-            Card card = handOpponent.get(indexHandOpponent);
-
             blockAnimation = true;
             //Coordinate where the animation trigger and stop
             double[] handOpponentCoord = PatternIndexHandToCoord(opponentTurn, indexHandOpponent);
@@ -232,17 +228,13 @@ public class Animation {
         }
     }
 
-    public void PutCardOpponent(int playerTurn, Kingdom kingdomPlayer, Kingdom kingdomOpponent, CountDownLatch latch)
+    public void PutCardOpponent(int playerTurn, int indexKingdomPlayer, int indexKingdomOpponent, Card card, Kingdom kingdomPlayer, Kingdom kingdomOpponent, CountDownLatch latch)
     {
         //PlayerTurn = the player which have put the card
         int opponentTurn = Game.Opponent(playerTurn);
-        int indexKingdomPlayer = ListCard.NextEmptyIndex(kingdomPlayer.getKingdom());
-        int indexKingdomOpponent = ListCard.NextFillIndex(kingdomOpponent.getKingdom());
 
         if(indexKingdomPlayer >= 0 & indexKingdomOpponent >= 0)
         {
-            Card card = kingdomOpponent.get(indexKingdomOpponent);
-
             blockAnimation = true;
             //Coordinate where the animation trigger and stop
             double[] kingdomOpponentCoord = PatternindexKingdomToCoord(opponentTurn, indexKingdomOpponent);

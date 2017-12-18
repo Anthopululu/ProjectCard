@@ -1,4 +1,5 @@
 package sample;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,23 +21,25 @@ public class Elf extends  Card {
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
-
+        List<Integer> po = new ArrayList<Integer>();
         try{
             //The current player
-            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            Player currentPlayer = game.playerList.get(game.playerTurn);
             // The oppenent
-            Player advPlayer = game.playerList.get(2 - game.playerTurn);
-            if(advPlayer.kingdom.selectedCard(index) != null && !(advPlayer.kingdom.selectedCard(0) instanceof Elf))
+            Player advPlayer = game.playerList.get(Game.Opponent(game.playerTurn));
+            Card tmp = advPlayer.kingdom.selectedCard(index);
+            if(!( tmp instanceof  DefaultCard) && !(tmp instanceof Elf))
             {
-                advPlayer.useThePowerOfTheNewCardPutDowOnTheKingdom(game,index);
+                po = advPlayer.kingdom.selectedCard(index).power(game,index);
             }
+            return po;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return po;
     }
-
 }

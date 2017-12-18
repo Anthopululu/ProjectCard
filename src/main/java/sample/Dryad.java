@@ -2,6 +2,7 @@ package sample;
 
 import jdk.nashorn.internal.runtime.ECMAException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dryad extends Card {
@@ -15,33 +16,40 @@ public class Dryad extends Card {
         return 0;
     }
 
-    /***
-     * stole a card in front of your opponent and add it in front of you without activating its power.
-     * @param game
-     */
+    //stole a card in front of your opponent and add it in front of you without activating its power.
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
+        List<Integer> po = new ArrayList<Integer>();
         try{
             //The current player
-            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
-            //oppenent
-            Player advPlayer = game.playerList.get(2 - game.playerTurn);
+            Player currentPlayer = game.playerList.get(game.playerTurn);
+            //opponent
+            Player advPlayer = game.playerList.get(Game.Opponent(game.playerTurn));
 
-            if(advPlayer.kingdom.selectedCard(index) != null )
+            if(!(advPlayer.kingdom.selectedCard(index) instanceof DefaultCard ))
             {
-                if(currentPlayer.kingdom.isFull())
+                if(ListCard.NextEmptyIndex(currentPlayer.kingdom.getKingdom()) <= 0)
+                {
                     currentPlayer.kingdom.ResetKingdom();
+                }
 
-                currentPlayer.kingdom.addCard(advPlayer.kingdom.selectedCard(index));
-                advPlayer.kingdom.removeCard(index );
+
+                System.out.println(currentPlayer.kingdom);
+                System.out.println(advPlayer.kingdom);
+
+                int indexEmpty = ListCard.NextEmptyIndex(currentPlayer.kingdom.getKingdom());
+                currentPlayer.kingdom.set(indexEmpty,advPlayer.kingdom.selectedCard(index));
+                advPlayer.kingdom.set(index, new DefaultCard());
+                po.add(indexEmpty);
             }
+
+            return po;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return po;
     }
-
-
 }

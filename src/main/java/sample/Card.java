@@ -55,29 +55,29 @@ public abstract class Card {
     {
         Card result = null;
         Random rand = new Random();
-        int n = rand.nextInt(1);
+        int n = rand.nextInt(6);
         if (n == 0) {
             result = new Gnome();
         }
         if (n == 1) {
-            result = new Elf();
-        }
-        if (n == 2) {
-            result = new Dryad();
-        }
-        if (n == 3) {
             result = new Goblin();
         }
-        if (n == 4) {
+        if (n == 2) {
+            result = new Korrigan();
+        }
+        if (n == 3) {
             result = new Troll();
         }
+        if (n == 4) {
+            result = new Dryad();
+        }
         if (n == 5) {
-            result = new Korrigan();
+            result = new Elf();
         }
         return result;
     }
 
-    public abstract void power(Game game,int index);
+    public abstract List<Integer> power(Game game,int index);
 
     public List<String> getClassString()
     {

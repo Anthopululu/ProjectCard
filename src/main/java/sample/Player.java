@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,18 +60,20 @@ public class Player {
         return kingdom.PutCard(hand, indexHand,  indexKingdom);
     }
 
-    public void useThePowerOfTheNewCardPutDowOnTheKingdom(Game game,int index)
+    public List<Integer> useThePowerOfTheNewCardPutDowOnTheKingdom(Game game,int index)
     {
+        List<Integer> l = new ArrayList<>();
         try
         {
             if(kingdom.size() != 0)
             {
-               kingdom.selectedCard(0).power(game,index);
+               l = kingdom.selectedCard(index).power(game,index);
             }
         }catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return l;
     }
 
     @Override

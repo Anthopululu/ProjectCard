@@ -1,4 +1,5 @@
 package sample;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Troll extends Card {
@@ -18,27 +19,27 @@ public class Troll extends Card {
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
+        List<Integer> po = new ArrayList<Integer>();
         try {
             //The current player
-            Player currentPlayer = game.playerList.get(game.playerTurn - 1);
+            Player currentPlayer = game.playerList.get(game.playerTurn);
             // The oppenent
-            Player advPlayer = game.playerList.get(2 - game.playerTurn);
+            Player advPlayer = game.playerList.get(Game.Opponent(game.playerTurn));
 
-            if(advPlayer.kingdom.selectedCard(index) != null)
-            {
-                Card tmp = currentPlayer.kingdom.newestCardOnTheKingdom();
-                currentPlayer.kingdom.removeCard(currentPlayer.kingdom.size() - 1);
-                currentPlayer.kingdom.addCard(advPlayer.kingdom.newestCardOnTheKingdom());
-                advPlayer.kingdom.removeCard(advPlayer.kingdom.size() - 1);
-                advPlayer.kingdom.addCard(tmp);
-            }
+            Kingdom tmp = currentPlayer.kingdom;
 
+            currentPlayer.setKingdom(advPlayer.kingdom);
+
+            advPlayer.setKingdom(tmp);
+
+            return po;
         }catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return po;
     }
 
 }

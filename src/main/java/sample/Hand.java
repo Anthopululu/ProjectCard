@@ -47,6 +47,18 @@ public class Hand {
         return card;
     }
 
+    public int nbCardEmptyHand()
+    {
+        int  n = 0;
+        for(int i = 0; i<10;i++ )
+        {
+            if(listOfCards.get(i) instanceof DefaultCard)
+                n++;
+        }
+        return n;
+    }
+
+
     public boolean IsDefaultCard(int indexHand)
     {
         return listOfCards.get(indexHand).equals(Card.DEFAULT_CARD);

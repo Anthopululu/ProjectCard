@@ -1,4 +1,5 @@
 package sample;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Gnome extends Card{
@@ -18,14 +19,17 @@ public class Gnome extends Card{
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
+        List<Integer> po = new ArrayList<Integer>();
         try {
             //Check into the method if we can draw card
-            game.DrawMultipleCard(game.playerTurn,2);
+            po = game.DrawMultipleCard(game.playerTurn,2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return po;
     }
+
 
 }

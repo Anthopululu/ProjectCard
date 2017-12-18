@@ -1,4 +1,5 @@
 package sample;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,22 +21,26 @@ public class Goblin extends Card{
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
-           try{
-               //The current player
-               Player currentPlayer = game.playerList.get(game.playerTurn - 1);
-               // The oppenent
-               Player advPlayer = game.playerList.get(2 - game.playerTurn);
+        List<Integer> po = new ArrayList<Integer>();
+        try{
+            //The current player
+            Player currentPlayer = game.playerList.get(game.playerTurn);
+            // The oppenent
+            Player advPlayer = game.playerList.get(Game.Opponent(game.playerTurn));
+            Hand tmpHand = currentPlayer.getHand();
+            currentPlayer.hand = advPlayer.hand;
+            advPlayer.hand = tmpHand;
+            return po;
 
-               Hand tmpHand = currentPlayer.getHand();
-               currentPlayer.hand = advPlayer.hand;
-               advPlayer.hand = tmpHand;
-           }catch (Exception e)
-           {
-               System.out.println(e.getMessage());
-           }
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return po;
     }
+
 
 
 }
