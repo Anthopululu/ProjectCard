@@ -51,20 +51,34 @@ public class GameTest {
     public void playTurn()
     {
         int nb_card_deck = game.deck.size();
+        int index = 0;
+        Card cardDrawed = game.deck.get(game.deck.size()-1);
+        int indexHandDraw = ListCard.NextEmptyIndex(game.playerList.get(game.playerTurn).getCardHand());
+        try {
+            game.DrawCard(game.playerTurn, indexHandDraw);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //Check if the size of the deck is reduced when a card is drawed
+        assertTrue(game.deck.size() < nb_card_deck);
+        //Check if the card drawed is the same with the new card in the hand
+        assertEquals(cardDrawed, game.playerList.get(game.playerTurn).getHand().get(indexHandDraw));
+
+
+        int indexHand = ListCard.NextFillIndex(game.playerList.get(game.playerTurn).getCardHand());
+        int indexKingdom = ListCard.NextEmptyIndex(game.playerList.get(game.playerTurn).getCardKingdom());
+        Card cardPlayed = game.playerList.get(0).putCard(indexHand,indexKingdom);
         int playerTurn = game.playerTurn;
 
-        //List of empty index before
-        int emptyCardKingdom = ListCard.EmptyIndex(game.playerList.get(playerTurn).getKingdom().getKingdom()).size();
-        int emptyCardHand= ListCard.EmptyIndex(game.playerList.get(playerTurn).getHand().getListOfCards()).size();
+
         //Play turn
         game.PlayTurnRandom();
 
-        //List of empty index now
-        int emptyCardKingdom2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getKingdom().getKingdom()).size();
-        int emptyCardHand2 = ListCard.EmptyIndex(game.playerList.get(playerTurn).getHand().getListOfCards()).size();
 
         //test if true
+
         assertTrue(nb_card_deck > game.deck.size());
+        //assertTrue()
     }
 
     /*Scenario 3 */
