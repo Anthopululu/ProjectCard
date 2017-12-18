@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.Double?>
 <?import java.lang.String?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,377 +10,425 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane id="pane" maxHeight="1280" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <children>
-      <GridPane layoutX="103.0" layoutY="315.0" prefHeight="90.0" prefWidth="231.0" style="-fx-background-color: #c9d3d3; -fx-border-color: #adb2b2; -fx-border-width: 3px;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" textAlignment="CENTER" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of cards : 0" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 : Name" />
-         </children>
-      </GridPane>
-      <GridPane fx:id="HandPlayer1" layoutX="14.0" layoutY="587.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Button id="HandPlayer1_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:0}">
-               <styleClass>
-                  <String fx:value="Card" />
-                  <String fx:value="Reverse" />
-               </styleClass></Button>
-            <Button id="HandPlayer1_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:1}" GridPane.columnIndex="1">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:2}" GridPane.columnIndex="2">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:3}" GridPane.columnIndex="3">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:4}" GridPane.columnIndex="4">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:5}" GridPane.columnIndex="5">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:6}" GridPane.columnIndex="6">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:7}" GridPane.columnIndex="7">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:8}" GridPane.columnIndex="8">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-            <Button id="HandPlayer1_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:9}" GridPane.columnIndex="9">
-               <styleClass>
-                   <String fx:value="Card" />
-                   <String fx:value="Reverse" />
-               </styleClass>
-            </Button>
-         </children>
-      </GridPane>
-      <GridPane fx:id="KingdomPlayer1" layoutX="14.0" layoutY="475.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-          <children>
-              <Button id="KingdomPlayer1_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:0}">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass></Button>
-              <Button id="KingdomPlayer1_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:1}" GridPane.columnIndex="1">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:2}" GridPane.columnIndex="2">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:3}" GridPane.columnIndex="3">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:4}" GridPane.columnIndex="4">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:5}" GridPane.columnIndex="5">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:6}" GridPane.columnIndex="6">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:7}" GridPane.columnIndex="7">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:8}" GridPane.columnIndex="8">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer1_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:9}" GridPane.columnIndex="9">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-          </children>
-      </GridPane>
-      <GridPane layoutX="560.0" layoutY="275.0" prefHeight="193.0" prefWidth="131.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <ImageView fitHeight="189.0" fitWidth="248.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../yugioh_reverse.png" />
-               </image>
-            </ImageView>
-            <Text fx:id="textDeckCardLeft" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Card left 45">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-         </children>
-      </GridPane>
-      <GridPane fx:id="KingdomPlayer0" layoutX="14.0" layoutY="164.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-          <children>
-              <Button id="KingdomPlayer0_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:0}">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass></Button>
-              <Button id="KingdomPlayer0_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:1}" GridPane.columnIndex="1">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:2}" GridPane.columnIndex="2">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:3}" GridPane.columnIndex="3">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:4}" GridPane.columnIndex="4">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:5}" GridPane.columnIndex="5">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:6}" GridPane.columnIndex="6">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:7}" GridPane.columnIndex="7">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:8}" GridPane.columnIndex="8">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="KingdomPlayer0_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:9}" GridPane.columnIndex="9">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-          </children>
-      </GridPane>
-      <GridPane fx:id="HandPlayer0" layoutX="14.0" layoutY="37.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-          <children>
-              <Button id="HandPlayer0_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:0}">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass></Button>
-              <Button id="HandPlayer0_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:1}" GridPane.columnIndex="1">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:2}" GridPane.columnIndex="2">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:3}" GridPane.columnIndex="3">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:4}" GridPane.columnIndex="4">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:5}" GridPane.columnIndex="5">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:6}" GridPane.columnIndex="6">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:7}" GridPane.columnIndex="7">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:8}" GridPane.columnIndex="8">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-              <Button id="HandPlayer0_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:9}" GridPane.columnIndex="9">
-                  <styleClass>
-                      <String fx:value="Card" />
-                      <String fx:value="Reverse" />
-                  </styleClass>
-              </Button>
-          </children>
-      </GridPane>
-      <GridPane layoutX="898.0" layoutY="316.0" prefHeight="90.0" prefWidth="231.0" style="-fx-background-color: #c9d3d3; -fx-border-color: #adb2b2; -fx-border-width: 3px;">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" textAlignment="CENTER" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of cards : 0" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 : Name" />
-         </children>
-      </GridPane>
-      <ImageView fx:id="AnimationView" fitHeight="90.0" fitWidth="70.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false" x="625.0" y="375.0">
-         <image>
-            <Image url="@../yugioh_reverse.png" />
-         </image>
-      </ImageView>
-   </children>
+    <children>
+        <GridPane layoutX="103.0" layoutY="315.0" prefHeight="90.0" prefWidth="231.0" style="-fx-background-color: #c9d3d3; -fx-border-color: #adb2b2; -fx-border-width: 3px;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text fx:id="textScorePlayer0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" textAlignment="CENTER" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="24.0" />
+                    </font></Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
+            </children>
+        </GridPane>
+        <GridPane fx:id="HandPlayer1" layoutX="14.0" layoutY="587.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button id="HandPlayer1_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:0}">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass></Button>
+                <Button id="HandPlayer1_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:1}" GridPane.columnIndex="1">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:2}" GridPane.columnIndex="2">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:3}" GridPane.columnIndex="3">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:4}" GridPane.columnIndex="4">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:5}" GridPane.columnIndex="5">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:6}" GridPane.columnIndex="6">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:7}" GridPane.columnIndex="7">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:8}" GridPane.columnIndex="8">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer1_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:true,id:9}" GridPane.columnIndex="9">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+            </children>
+        </GridPane>
+        <GridPane fx:id="KingdomPlayer1" layoutX="14.0" layoutY="475.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button id="KingdomPlayer1_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:0}">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass></Button>
+                <Button id="KingdomPlayer1_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:1}" GridPane.columnIndex="1">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:2}" GridPane.columnIndex="2">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:3}" GridPane.columnIndex="3">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:4}" GridPane.columnIndex="4">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:5}" GridPane.columnIndex="5">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:6}" GridPane.columnIndex="6">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:7}" GridPane.columnIndex="7">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:8}" GridPane.columnIndex="8">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer1_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:1,hand:false,id:9}" GridPane.columnIndex="9">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+            </children>
+        </GridPane>
+        <GridPane layoutX="560.0" layoutY="275.0" prefHeight="193.0" prefWidth="131.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <ImageView fitHeight="189.0" fitWidth="248.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../yugioh_reverse.png" />
+                    </image>
+                </ImageView>
+                <Text fx:id="textDeckCardLeft" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Card left 45">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+            </children>
+        </GridPane>
+        <GridPane fx:id="KingdomPlayer0" layoutX="14.0" layoutY="164.0" prefHeight="100.0" prefWidth="1258.0" styleClass="kingdom">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button id="KingdomPlayer0_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:0}">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass></Button>
+                <Button id="KingdomPlayer0_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:1}" GridPane.columnIndex="1">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:2}" GridPane.columnIndex="2">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:3}" GridPane.columnIndex="3">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:4}" GridPane.columnIndex="4">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:5}" GridPane.columnIndex="5">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:6}" GridPane.columnIndex="6">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:7}" GridPane.columnIndex="7">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:8}" GridPane.columnIndex="8">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="KingdomPlayer0_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:false,id:9}" GridPane.columnIndex="9">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+            </children>
+        </GridPane>
+        <GridPane fx:id="HandPlayer0" layoutX="14.0" layoutY="37.0" prefHeight="119.0" prefWidth="1258.0" styleClass="hand">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button id="HandPlayer0_Card0" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:0}">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass></Button>
+                <Button id="HandPlayer0_Card1" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:1}" GridPane.columnIndex="1">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card2" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:2}" GridPane.columnIndex="2">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card3" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:3}" GridPane.columnIndex="3">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card4" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:4}" GridPane.columnIndex="4">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card5" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:5}" GridPane.columnIndex="5">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card6" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:6}" GridPane.columnIndex="6">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card7" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:7}" GridPane.columnIndex="7">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card8" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:8}" GridPane.columnIndex="8">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+                <Button id="HandPlayer0_Card9" mnemonicParsing="false" onAction="#numChange" prefHeight="90.0" prefWidth="70.0" userData="{player:0,hand:true,id:9}" GridPane.columnIndex="9">
+                    <styleClass>
+                        <String fx:value="Card" />
+                        <String fx:value="Reverse" />
+                    </styleClass>
+                </Button>
+            </children>
+        </GridPane>
+        <GridPane layoutX="898.0" layoutY="316.0" prefHeight="90.0" prefWidth="231.0" style="-fx-background-color: #c9d3d3; -fx-border-color: #adb2b2; -fx-border-width: 3px;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text fx:id="textScorePlayer1" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" textAlignment="CENTER" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="24.0" />
+                    </font></Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </GridPane>
+        <ImageView fx:id="AnimationView" fitHeight="90.0" fitWidth="70.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false" x="625.0" y="375.0">
+            <image>
+                <Image url="@../yugioh_reverse.png" />
+            </image>
+        </ImageView>
+        <Polygon fx:id="FramePlayer0" fill="#ffffff00" layoutX="10" layoutY="10" stroke="#8d8787" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0">
+            <points>
+                <Double fx:value="0.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="1265.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="1265.0" />
+                <Double fx:value="260.0" />
+                <Double fx:value="500.0" />
+                <Double fx:value="260.0" />
+                <Double fx:value="500.0" />
+                <Double fx:value="400.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="400.0" />
+            </points>
+        </Polygon>
+        <Polygon fx:id="FramePlayer1" fill="#ffffff00" layoutX="1275" layoutY="715" stroke="#8d8787" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0">
+            <points>
+                <Double fx:value="0.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-1265.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-1265.0" />
+                <Double fx:value="-243.0" />
+                <Double fx:value="-500.0" />
+                <Double fx:value="-243.0" />
+                <Double fx:value="-500.0" />
+                <Double fx:value="-400.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-400.0" />
+            </points>
+        </Polygon>
+        <Text fx:id="Player0TextEndGame" fill="WHITE" layoutX="125.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Winner !" textAlignment="CENTER" visible="false" wrappingWidth="186.177734375">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <Text fx:id="Player1TextEndGame" fill="WHITE" layoutX="920.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Winner !" textAlignment="CENTER" visible="false" wrappingWidth="186.177734375">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+    </children>
 </Pane>

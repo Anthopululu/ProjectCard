@@ -7,53 +7,15 @@ import java.util.Random;
 public abstract class Card {
 
     String name;
-    boolean isHand;
-    boolean isKingdom;
     static DefaultCard DEFAULT_CARD = new DefaultCard();//The default card
-    boolean isDeck;
 
     public Card()//To have an heritage
     {
-        isDeck = true;
-        isHand = false;
-        isKingdom = false;
     }
 
     public Card(String name)
     {
         this.name = name;
-        isDeck = true;
-        isHand = false;
-        isKingdom = false;
-    }
-
-    public boolean IsDeck()
-    {
-        return isDeck;
-    }
-
-    public boolean IsKingdom()
-    {
-        return isKingdom;
-    }
-
-    public boolean IsHand()
-    {
-        return isHand;
-    }
-
-    public void toKingdom()
-    {
-        isDeck = false;
-        isHand = false;
-        isKingdom = true;
-    }
-
-    public void toHand()
-    {
-        isDeck = false;
-        isHand = true;
-        isKingdom = false;
     }
 
     @Override

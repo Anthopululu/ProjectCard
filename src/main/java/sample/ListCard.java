@@ -83,4 +83,18 @@ public abstract class ListCard {
             return -1;
         }
     }
+
+    public static int RandomFillIndex(List<Card> list)
+    {
+        List<Integer> resultList = FillIndex(list);
+        //Random r = new
+        if(resultList.size() > 0)
+        {
+            return resultList.get(0);
+        }
+        else
+        {
+            return -1;
+        }
+    }
 }

@@ -13,8 +13,8 @@ public class Game {
     List<Player> playerList;//playerList.get(0) = Player 1, playerList.get(1) = Player 2
     List<Card> deck;
     int playerTurn;//1 = Player 1, 2 = Player 2
-    //Be careful about list, all of them start at 0, whereas the player start at 1
-    //Animation start at 1 too
+    boolean endGame;
+
 
     public Game()
     {
@@ -22,6 +22,9 @@ public class Game {
         deck = CreateDeck();
         playerList = Arrays.asList(new Player(0), new Player(1));
         playerTurn = 1;
+
+        endGame = false;
+
     }
 
     public static int Opponent(int player)
@@ -87,6 +90,79 @@ public class Game {
         }
         return card;
     }
+
+    public int Score(int player)
+    {
+        int score = 0;
+        List<Integer> indexFilled = ListCard.FillIndex(playerList.get(player).getCardKingdom());
+        int nbCardKingdom = indexFilled.size();
+
+        boolean[] containClass = {false, false, false, false, false, false};
+        score += nbCardKingdom;
+        if(nbCardKingdom > 5)
+        {
+            Card card = null;
+            for(int i = 0; i < indexFilled.size();i++)
+            {
+                card = playerList.get(player).getCardKingdom().get(indexFilled.get(i));
+                if(card instanceof Elf)
+                {
+                    containClass[0] = true;
+                }
+                if(card instanceof Dryad)
+                {
+                    containClass[1] = true;
+                }
+                if(card instanceof Gnome)
+                {
+                    containClass[2] = true;
+                }
+                if(card instanceof Troll)
+                {
+                    containClass[3] = true;
+                }
+                if(card instanceof Korrigan)
+                {
+                    containClass[4] = true;
+                }
+                if(card instanceof Goblin)
+                {
+                    containClass[5] = true;
+                }
+            }
+
+            boolean containAllType = true;
+            for(int i = 0; i < containClass.length;i++)
+            {
+                if(!containClass[i])
+                {
+                    containAllType = true;
+                }
+            }
+
+            if(containAllType)
+            {
+                score += 3;
+            }
+        }
+        return score;
+    }
+
+    public boolean CheckEndGame()
+    {
+        boolean result = false;
+        if(deck.size() <1)
+        {
+            int emptyIndexHand0 = ListCard.NextEmptyIndex(playerList.get(0).getCardHand());
+            int emptyIndexHand1 = ListCard.NextEmptyIndex(playerList.get(1).getCardHand());
+            if(emptyIndexHand0 < 1 & emptyIndexHand1 < 1)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
 
     public int NextCardHand()
     {
