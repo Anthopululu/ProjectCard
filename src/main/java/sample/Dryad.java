@@ -2,6 +2,7 @@ package sample;
 
 import jdk.nashorn.internal.runtime.ECMAException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dryad extends Card {
@@ -20,8 +21,9 @@ public class Dryad extends Card {
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
+        List<Integer> po = new ArrayList<Integer>();
         try{
             //The current player
             Player currentPlayer = game.playerList.get(game.playerTurn - 1);
@@ -33,14 +35,18 @@ public class Dryad extends Card {
                 if(currentPlayer.kingdom.isFull())
                     currentPlayer.kingdom.ResetKingdom();
 
-                currentPlayer.kingdom.addCard(advPlayer.kingdom.selectedCard(index));
-                advPlayer.kingdom.removeCard(index );
+                int indexEmpty = ListCard.NextEmptyIndex(currentPlayer.kingdom.getKingdom());
+                currentPlayer.kingdom.set(indexEmpty,advPlayer.kingdom.selectedCard(index));
+                advPlayer.kingdom.set(indexEmpty, new DefaultCard());
             }
+
+            return po;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return po;
     }
 
 

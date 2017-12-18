@@ -118,6 +118,17 @@ public class Kingdom {
         return isFull;
     }
 
+    public int nbCardEmptyKingdom()
+    {
+        int  n = 0;
+        for(int i = 0; i<10;i++ )
+        {
+            if(kingdom.get(i) instanceof DefaultCard)
+                n++;
+        }
+        return n;
+    }
+
     @Override
     public String toString() {
         return kingdom.toString();

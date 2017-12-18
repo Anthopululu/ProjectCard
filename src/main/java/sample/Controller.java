@@ -134,6 +134,10 @@ public class Controller {
     }
 
     public void Power(Card card, CountDownLatch latch) throws InterruptedException {
+
+
+
+
         if(card.equals(new Gnome()))
         {
             DrawMultipleCard(game.playerTurn, 2);

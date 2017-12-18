@@ -1,4 +1,5 @@
 package sample;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,9 +21,9 @@ public class Elf extends  Card {
      * @param game
      */
     @Override
-    public void power(Game game,int index)
+    public List<Integer> power(Game game,int index)
     {
-
+        List<Integer> po = new ArrayList<Integer>();
         try{
             //The current player
             Player currentPlayer = game.playerList.get(game.playerTurn - 1);
@@ -32,11 +33,13 @@ public class Elf extends  Card {
             {
                 advPlayer.useThePowerOfTheNewCardPutDowOnTheKingdom(game,index);
             }
+            return po;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return po;
     }
 
 }
