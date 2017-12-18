@@ -6,6 +6,12 @@ public class ButtonPressInformation {
     int player;
     boolean hand;
 
+    public ButtonPressInformation(int id, int player, boolean hand) {
+        this.id = id;
+        this.player = player;
+        this.hand = hand;
+    }
+
     public int getId() {
         return id;
     }
@@ -27,12 +33,6 @@ public class ButtonPressInformation {
     }
 
     public void setHand(boolean hand) {
-        this.hand = hand;
-    }
-
-    public ButtonPressInformation(int id, int player, boolean hand) {
-        this.id = id;
-        this.player = player;
         this.hand = hand;
     }
 
